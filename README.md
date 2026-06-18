@@ -1,4 +1,4 @@
-# Czárth Zsófia – Holistic Family Therapist Website
+# Czárth Zsófia – Psychologist Website
 
 Production-ready single-page homepage built with **React**, **Vite**, **TypeScript**, **Tailwind CSS**, and **Framer Motion**.
 
@@ -20,13 +20,11 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ## Image Asset
 
-Add your hero image to:
+The hero image is located at:
 
 ```
-public/assets/image_3fab1f.jpg
+public/assets/hero.png
 ```
-
-The site references it at `/assets/image_3fab1f.jpg` with localized alt text.
 
 ## Build
 

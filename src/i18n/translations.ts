@@ -5,9 +5,9 @@ export type TranslationKeys = (typeof translations)[Language];
 export const translations = {
   hu: {
     meta: {
-      title: 'Czárth Zsófia – Holisztikus családterapeuta',
+      title: 'Czárth Zsófia – Pszichológus',
       description:
-        'Holisztikus családterapeuta és tanácsadó. Út a belső békéhez és a családi harmóniához.',
+        'Pszichológus. Támogató, biztonságos térben segítek feldolgozni a nehézségeket és megtalálni a belső egyensúlyt.',
     },
     nav: {
       logo: 'Czárth Zsófia',
@@ -18,42 +18,43 @@ export const translations = {
       bookSession: 'Időpontfoglalás',
     },
     hero: {
-      eyebrow: 'Holisztikus családterapeuta & tanácsadó',
-      headline: 'Út a belső békéhez és a családi harmóniához',
+      eyebrow: 'Pszichológus',
+      headline: 'Tér az önismerethez és a lelki egyensúlyhoz',
       subheadline:
-        'Biztonságos, meleg és támogató térben segítek feldolgozni a nehézségeket, erősíteni a kapcsolatokat és megtalálni az egyensúlyt.',
+        'Biztonságos, meleg és támogató térben segítek feldolgozni a nehézségeket, megérteni az érzelmeket és megtalálni a belső erőforrásokat.',
       cta: 'Konzultáció igénylése',
-      imageAlt: 'Czárth Zsófia - Holisztikus családterapeuta',
+      imageAlt: 'Czárth Zsófia - Pszichológus',
     },
     video: {
       label: 'Bemutatkozó videó',
-      description: 'Ismerje meg megközelítésemet és a terápiás folyamatot rövid videómban.',
+      description:
+        'Ismerje meg pszichológiai megközelítésemet és a közös munka folyamatát rövid videómban.',
       playAria: 'Videó lejátszása',
     },
     services: {
       title: 'Szakterületek',
       subtitle:
-        'Személyre szabott, holisztikus megközelítéssel támogatom Önt és családját a változás útján.',
+        'Személyre szabott pszichológiai támogatással segítek Önnek a változás és az önismeret útján.',
       items: [
         {
-          title: 'Családterápia',
+          title: 'Egyéni pszichológiai tanácsadás',
           description:
-            'Segítek a családi dinamikák megértésében, a kommunikáció javításában és a konfliktusok konstruktív kezelésében.',
+            'Támogatom az önismeret fejlődését, a belső konfliktusok feldolgozását és a személyes növekedést.',
         },
         {
-          title: 'Párterápia',
+          title: 'Szorongás és hangulati zavarok',
           description:
-            'Biztonságos térben dolgozunk a kapcsolat mélyítésén, a bizalom helyreállításán és a közös jövő kialakításán.',
+            'Segítek megérteni és kezelni a szorongást, a depresszív tüneteket és az érzelmi nehézségeket.',
         },
         {
-          title: 'Egyéni terápia',
+          title: 'Pár- és családkapcsolati tanácsadás',
           description:
-            'Támogatom az önismeret fejlődését, a belső erőforrások feltárását és a személyes növekedést.',
+            'Biztonságos térben dolgozunk a kapcsolati dinamikák megértésén, a kommunikáció javításán és a bizalom helyreállításán.',
         },
         {
-          title: 'Stresszkezelés',
+          title: 'Stressz- és kríziskezelés',
           description:
-            'Gyakorlati eszközöket adok a mindennapi feszültség kezelésére és a lelki egyensúly megőrzésére.',
+            'Gyakorlati eszközöket adok a mindennapi feszültség, a krízishelyzetek és a lelki terhelés kezelésére.',
         },
       ],
     },
@@ -63,21 +64,21 @@ export const translations = {
       items: [
         {
           quote:
-            'Zsófia meleg és megértő jelenléte segített, hogy végre őszintén beszélhessünk egymással a párommal. A kapcsolatunk újra erősebb lett.',
+            'Zsófia meleg és megértő jelenléte segített, hogy végre őszintén beszélhessek magamról. Újra bízom önmagamban.',
           author: 'Anonim ügyfél',
-          role: 'Párterápia',
+          role: 'Egyéni tanácsadás',
         },
         {
           quote:
-            'A családterápiás üléseken mindenki meghallgatásra talált. Végre értjük egymást, és békésebbek a mindennapjaink.',
+            'A párkapcsolati üléseken mindketten meghallgatásra találtunk. Végre értjük egymást, és nyugodtabbak a mindennapjaink.',
           author: 'Anonim ügyfél',
-          role: 'Családterápia',
+          role: 'Párkapcsolati tanácsadás',
         },
         {
           quote:
-            'Az egyéni üléseken megtanultam kezelni a stresszt és jobban figyelni magamra. Hálás vagyok a támogatásért.',
+            'A szorongásom kezelhetővé vált. Megtanultam felismerni a trigger pontjaimat és egészségesen reagálni rájuk.',
           author: 'Anonim ügyfél',
-          role: 'Egyéni terápia',
+          role: 'Szorongáskezelés',
         },
         {
           quote:
@@ -88,7 +89,7 @@ export const translations = {
       ],
     },
     footer: {
-      tagline: 'Holisztikus családterapeuta & tanácsadó',
+      tagline: 'Pszichológus',
       contactTitle: 'Kapcsolat',
       email: 'hello@czarthzsofia.hu',
       phone: '+36 30 123 4567',
@@ -106,9 +107,9 @@ export const translations = {
   },
   en: {
     meta: {
-      title: 'Zsófia Czárth – Holistic Family Therapist',
+      title: 'Zsófia Czárth – Psychologist',
       description:
-        'Holistic family therapist and counselor. Path to inner peace and family harmony.',
+        'Psychologist. In a supportive, safe space, I help you process challenges and find inner balance.',
     },
     nav: {
       logo: 'Czárth Zsófia',
@@ -119,42 +120,43 @@ export const translations = {
       bookSession: 'Book a Session',
     },
     hero: {
-      eyebrow: 'Holistic Family Therapist & Counselor',
-      headline: 'Path to Inner Peace and Family Harmony',
+      eyebrow: 'Psychologist',
+      headline: 'Space for Self-Discovery and Emotional Balance',
       subheadline:
-        'In a warm, safe, and supportive space, I help you process challenges, strengthen relationships, and find balance.',
+        'In a warm, safe, and supportive space, I help you process challenges, understand your emotions, and reconnect with your inner resources.',
       cta: 'Request a Consultation',
-      imageAlt: 'Zsófia Czárth - Holistic Family Therapist',
+      imageAlt: 'Zsófia Czárth - Psychologist',
     },
     video: {
       label: 'Introduction Video',
-      description: 'Learn about my approach and the therapeutic process in my short introduction video.',
+      description:
+        'Learn about my psychological approach and what to expect from our work together in my short introduction video.',
       playAria: 'Play video',
     },
     services: {
       title: 'Areas of Practice',
       subtitle:
-        'With a personalized, holistic approach, I support you and your family on the path to change.',
+        'With personalized psychological support, I guide you on the path to change and self-understanding.',
       items: [
         {
-          title: 'Family Counseling',
+          title: 'Individual Psychological Counseling',
           description:
-            'I help understand family dynamics, improve communication, and handle conflicts constructively.',
+            'I support self-discovery, processing inner conflicts, and personal growth.',
         },
         {
-          title: 'Couples Therapy',
+          title: 'Anxiety and Mood Disorders',
           description:
-            'In a safe space, we work on deepening your relationship, rebuilding trust, and shaping a shared future.',
+            'I help you understand and manage anxiety, depressive symptoms, and emotional difficulties.',
         },
         {
-          title: 'Individual Therapy',
+          title: 'Couples and Family Counseling',
           description:
-            'I support self-discovery, uncovering inner resources, and personal growth.',
+            'In a safe space, we work on understanding relationship dynamics, improving communication, and rebuilding trust.',
         },
         {
-          title: 'Stress Management',
+          title: 'Stress and Crisis Management',
           description:
-            'I provide practical tools for managing daily tension and maintaining emotional balance.',
+            'I provide practical tools for managing daily tension, crisis situations, and emotional overload.',
         },
       ],
     },
@@ -164,21 +166,21 @@ export const translations = {
       items: [
         {
           quote:
-            "Zsófia's warm and understanding presence helped my partner and me finally speak honestly. Our relationship feels stronger again.",
+            "Zsófia's warm and understanding presence helped me finally speak honestly about myself. I trust myself again.",
           author: 'Anonymous Client',
-          role: 'Couples Therapy',
+          role: 'Individual Counseling',
         },
         {
           quote:
-            'In family therapy, everyone felt heard. We finally understand each other, and our daily life is more peaceful.',
+            'In couples sessions, we both felt heard. We finally understand each other, and our daily life is calmer.',
           author: 'Anonymous Client',
-          role: 'Family Counseling',
+          role: 'Couples Counseling',
         },
         {
           quote:
-            'In individual sessions, I learned to manage stress and listen to myself better. I am grateful for the support.',
+            'My anxiety became manageable. I learned to recognize my triggers and respond to them in healthier ways.',
           author: 'Anonymous Client',
-          role: 'Individual Therapy',
+          role: 'Anxiety Support',
         },
         {
           quote:
@@ -189,7 +191,7 @@ export const translations = {
       ],
     },
     footer: {
-      tagline: 'Holistic Family Therapist & Counselor',
+      tagline: 'Psychologist',
       contactTitle: 'Contact',
       email: 'hello@czarthzsofia.hu',
       phone: '+36 30 123 4567',

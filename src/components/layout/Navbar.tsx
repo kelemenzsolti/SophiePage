@@ -36,13 +36,17 @@ export function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'border-b border-charcoal/5 bg-cream/90 shadow-soft backdrop-blur-md'
-          : 'bg-transparent'
+          : 'bg-gradient-to-b from-charcoal/40 to-transparent'
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a
           href="#"
-          className="font-serif text-xl font-semibold tracking-tight text-charcoal transition-colors hover:text-terracotta md:text-2xl"
+          className={`font-serif text-xl font-semibold tracking-tight transition-colors md:text-2xl ${
+            scrolled
+              ? 'text-charcoal hover:text-terracotta'
+              : 'text-cream hover:text-terracotta'
+          }`}
         >
           {t.nav.logo}
         </a>
@@ -53,7 +57,9 @@ export function Navbar() {
               <li key={key}>
                 <a
                   href={href}
-                  className="text-sm font-medium text-charcoal/75 transition-colors hover:text-terracotta"
+                  className={`text-sm font-medium transition-colors hover:text-terracotta ${
+                    scrolled ? 'text-charcoal/75' : 'text-cream/85'
+                  }`}
                 >
                   {t.nav[key]}
                 </a>
@@ -61,7 +67,7 @@ export function Navbar() {
             ))}
           </ul>
 
-          <LanguageSwitcher />
+          <LanguageSwitcher light={!scrolled} />
 
           <a
             href="#contact"
@@ -72,12 +78,16 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center gap-3 lg:hidden">
-          <LanguageSwitcher compact />
+          <LanguageSwitcher compact light={!scrolled} />
           <button
             type="button"
             aria-label="Menu"
             onClick={() => setMobileOpen((open) => !open)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-charcoal/10 bg-cream text-charcoal"
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border backdrop-blur-sm transition-colors ${
+              scrolled
+                ? 'border-charcoal/10 bg-cream text-charcoal'
+                : 'border-cream/25 bg-charcoal/20 text-cream'
+            }`}
           >
             <span className="sr-only">Menu</span>
             <svg

@@ -4,9 +4,13 @@ import type { Language } from '../../i18n/translations';
 
 interface LanguageSwitcherProps {
   compact?: boolean;
+  light?: boolean;
 }
 
-export function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
+export function LanguageSwitcher({
+  compact = false,
+  light = false,
+}: LanguageSwitcherProps) {
   const { language, setLanguage, t } = useTranslation();
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -30,6 +34,13 @@ export function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
     setOpen(false);
   };
 
+  const buttonClass = light
+    ? 'border-cream/25 bg-charcoal/20 text-cream hover:border-cream/40'
+    : 'border-charcoal/10 bg-cream text-charcoal hover:border-terracotta/30';
+
+  const inactiveClass = light ? 'text-cream/45' : 'text-charcoal/40';
+  const dividerClass = light ? 'text-cream/30' : 'text-charcoal/25';
+
   if (compact) {
     return (
       <div
@@ -40,13 +51,13 @@ export function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
         <button
           type="button"
           onClick={() => setOpen((value) => !value)}
-          className="flex items-center gap-1 rounded-full border border-charcoal/10 bg-cream px-3 py-1.5 text-xs font-semibold tracking-wide text-charcoal transition-colors hover:border-terracotta/30"
+          className={`flex items-center gap-1 rounded-full border px-3 py-1.5 text-xs font-semibold tracking-wide backdrop-blur-sm transition-colors ${buttonClass}`}
         >
-          <span className={language === 'hu' ? 'text-terracotta' : 'text-charcoal/40'}>
+          <span className={language === 'hu' ? 'text-terracotta' : inactiveClass}>
             {t.language.hu}
           </span>
-          <span className="text-charcoal/25">|</span>
-          <span className={language === 'en' ? 'text-terracotta' : 'text-charcoal/40'}>
+          <span className={dividerClass}>|</span>
+          <span className={language === 'en' ? 'text-terracotta' : inactiveClass}>
             {t.language.en}
           </span>
         </button>
@@ -82,17 +93,17 @@ export function LanguageSwitcher({ compact = false }: LanguageSwitcherProps) {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="flex items-center gap-2 rounded-full border border-charcoal/10 bg-cream/80 px-4 py-2 text-sm font-medium text-charcoal transition-all hover:border-terracotta/30 hover:shadow-soft"
+        className={`flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium backdrop-blur-sm transition-all hover:shadow-soft ${buttonClass}`}
       >
-        <span className={language === 'hu' ? 'text-terracotta' : 'text-charcoal/40'}>
+        <span className={language === 'hu' ? 'text-terracotta' : inactiveClass}>
           {t.language.hu}
         </span>
-        <span className="text-charcoal/20">|</span>
-        <span className={language === 'en' ? 'text-terracotta' : 'text-charcoal/40'}>
+        <span className={dividerClass}>|</span>
+        <span className={language === 'en' ? 'text-terracotta' : inactiveClass}>
           {t.language.en}
         </span>
         <svg
-          className={`h-3.5 w-3.5 text-charcoal/40 transition-transform ${open ? 'rotate-180' : ''}`}
+          className={`h-3.5 w-3.5 transition-transform ${light ? 'text-cream/60' : 'text-charcoal/40'} ${open ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
