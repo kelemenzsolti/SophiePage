@@ -4,18 +4,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        terracotta: '#C57B57',
-        cream: '#FDFBF7',
-        olive: '#848C72',
-        charcoal: '#2F3E46',
+        terracotta: 'rgb(var(--color-terracotta) / <alpha-value>)',
+        cream: 'rgb(var(--color-cream) / <alpha-value>)',
+        olive: 'rgb(var(--color-olive) / <alpha-value>)',
+        charcoal: 'rgb(var(--color-charcoal) / <alpha-value>)',
       },
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       boxShadow: {
-        soft: '0 4px 24px rgba(47, 62, 70, 0.08)',
-        card: '0 8px 32px rgba(47, 62, 70, 0.1)',
+        soft: 'var(--shadow-soft)',
+        card: 'var(--shadow-card)',
+      },
+      borderRadius: {
+        card: 'var(--radius-card)',
+        'card-lg': 'var(--radius-card-lg)',
+        pill: 'var(--radius-pill)',
+      },
+      borderColor: {
+        subtle: 'var(--border-subtle)',
+        muted: 'var(--border-default)',
       },
     },
   },

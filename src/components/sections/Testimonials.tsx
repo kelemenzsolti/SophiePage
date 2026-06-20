@@ -21,7 +21,7 @@ export function Testimonials() {
       />
 
       <div className="relative mx-auto max-w-4xl">
-        <div className="overflow-hidden rounded-[1.75rem] border border-charcoal/5 bg-cream/80 p-8 shadow-card backdrop-blur-sm md:p-12">
+        <div className="card-panel p-8 md:p-12">
           <AnimatePresence mode="wait">
             <motion.blockquote
               key={`${activeIndex}-${items[activeIndex].quote.slice(0, 20)}`}
@@ -99,10 +99,10 @@ export function Testimonials() {
           {items.map((item, index) => (
             <motion.div
               key={item.quote.slice(0, 24)}
-              className={`rounded-2xl border p-6 transition-all ${
+              className={`card p-6 transition-all ${
                 index === activeIndex
-                  ? 'border-terracotta/30 bg-cream shadow-soft'
-                  : 'border-charcoal/5 bg-cream/60'
+                  ? 'border-terracotta/30 shadow-soft'
+                  : 'border-subtle bg-cream/60'
               }`}
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}

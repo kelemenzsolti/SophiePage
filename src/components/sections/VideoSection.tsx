@@ -10,15 +10,15 @@ export function VideoSection() {
       <SectionHeader title={t.video.label} subtitle={t.video.description} />
 
       <motion.div
-        className="relative mx-auto max-w-4xl overflow-hidden rounded-[1.75rem] border border-charcoal/5 shadow-card"
+        className="relative mx-auto max-w-4xl overflow-hidden rounded-card-lg border border-subtle shadow-card"
         initial={{ opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="relative aspect-video bg-gradient-to-br from-terracotta/20 via-olive/15 to-cream">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,rgba(197,123,87,0.25),transparent_55%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_60%,rgba(132,140,114,0.2),transparent_50%)]" />
+          <div className="absolute inset-0 bg-gradient-terracotta-glow" />
+          <div className="absolute inset-0 bg-gradient-olive-glow" />
 
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8 text-center">
             <button

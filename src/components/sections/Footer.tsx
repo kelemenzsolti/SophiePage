@@ -35,7 +35,7 @@ export function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer id="contact" className="border-t border-charcoal/5 bg-charcoal text-cream">
+    <footer id="contact" className="border-t border-subtle bg-charcoal text-cream">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <motion.div
           className="grid gap-12 md:grid-cols-2 lg:grid-cols-4"
@@ -51,7 +51,7 @@ export function Footer() {
             </p>
             <a
               href="#contact"
-              className="mt-6 inline-flex rounded-full bg-terracotta px-6 py-3 text-sm font-medium text-cream transition-colors hover:bg-terracotta/90"
+              className="btn-primary mt-6 px-6 py-3"
             >
               {t.nav.bookSession}
             </a>

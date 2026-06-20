@@ -39,7 +39,7 @@ export function Hero() {
           <div className="mt-10 flex flex-wrap gap-4">
             <a
               href="#contact"
-              className="inline-flex items-center justify-center rounded-full bg-terracotta px-7 py-3.5 text-sm font-medium text-cream shadow-soft transition-all hover:bg-terracotta/90 hover:shadow-card"
+              className="btn-primary px-7 py-3.5"
             >
               {t.hero.cta}
             </a>

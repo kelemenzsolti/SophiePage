@@ -35,7 +35,7 @@ export function Navbar() {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'border-b border-charcoal/5 bg-cream/90 shadow-soft backdrop-blur-md'
+          ? 'border-b border-subtle bg-cream/90 shadow-soft backdrop-blur-md'
           : 'bg-gradient-to-b from-charcoal/40 to-transparent'
       }`}
     >
@@ -71,7 +71,7 @@ export function Navbar() {
 
           <a
             href="#contact"
-            className="rounded-full bg-terracotta px-5 py-2.5 text-sm font-medium text-cream shadow-soft transition-all hover:bg-terracotta/90 hover:shadow-card"
+            className="btn-primary px-5 py-2.5"
           >
             {t.nav.bookSession}
           </a>
@@ -111,7 +111,7 @@ export function Navbar() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="border-t border-charcoal/5 bg-cream/95 px-6 py-6 backdrop-blur-md lg:hidden"
+          className="border-t border-subtle bg-cream/95 px-6 py-6 backdrop-blur-md lg:hidden"
         >
           <ul className="flex flex-col gap-4">
             {navLinks.map(({ key, href }) => (
@@ -129,7 +129,7 @@ export function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="inline-flex rounded-full bg-terracotta px-5 py-2.5 text-sm font-medium text-cream"
+                className="btn-primary px-5 py-2.5"
               >
                 {t.nav.bookSession}
               </a>

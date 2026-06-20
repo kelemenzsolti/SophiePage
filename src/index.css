@@ -3,6 +3,39 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Colors (RGB channels for Tailwind opacity modifiers) */
+    --color-terracotta: 197 123 87;
+    --color-cream: 253 251 247;
+    --color-olive: 132 140 114;
+    --color-charcoal: 47 62 70;
+
+    /* Shadows */
+    --shadow-soft: 0 4px 24px rgb(var(--color-charcoal) / 0.08);
+    --shadow-card: 0 8px 32px rgb(var(--color-charcoal) / 0.1);
+
+    /* Radii */
+    --radius-card: 1rem;
+    --radius-card-lg: 1.75rem;
+    --radius-pill: 9999px;
+
+    /* Borders */
+    --border-subtle: rgb(var(--color-charcoal) / 0.05);
+    --border-default: rgb(var(--color-charcoal) / 0.1);
+
+    /* Gradients */
+    --gradient-terracotta-glow: radial-gradient(
+      circle at 30% 40%,
+      rgb(var(--color-terracotta) / 0.25),
+      transparent 55%
+    );
+    --gradient-olive-glow: radial-gradient(
+      circle at 70% 60%,
+      rgb(var(--color-olive) / 0.2),
+      transparent 50%
+    );
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -16,8 +49,46 @@
   }
 }
 
+@layer components {
+  .card {
+    @apply rounded-card border border-subtle bg-cream;
+  }
+
+  .card-elevated {
+    @apply card shadow-card;
+  }
+
+  .card-interactive {
+    @apply card shadow-soft transition-all hover:-translate-y-1 hover:border-terracotta/20 hover:shadow-card;
+  }
+
+  .card-feature {
+    @apply card-interactive p-8;
+  }
+
+  .card-panel {
+    @apply overflow-hidden rounded-card-lg border border-subtle bg-cream/80 shadow-card backdrop-blur-sm;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-full bg-terracotta text-sm font-medium text-cream shadow-soft transition-all hover:bg-terracotta/90 hover:shadow-card;
+  }
+
+  .dropdown-menu {
+    @apply absolute right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-muted bg-cream shadow-card;
+  }
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .bg-gradient-terracotta-glow {
+    background-image: var(--gradient-terracotta-glow);
+  }
+
+  .bg-gradient-olive-glow {
+    background-image: var(--gradient-olive-glow);
   }
 }

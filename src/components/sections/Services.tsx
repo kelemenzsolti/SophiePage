@@ -36,7 +36,7 @@ export function Services() {
         {t.services.items.map((item, index) => (
           <motion.article
             key={item.title}
-            className="group rounded-2xl border border-charcoal/5 bg-cream p-8 shadow-soft transition-all hover:-translate-y-1 hover:border-terracotta/20 hover:shadow-card"
+            className="group card-feature"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}

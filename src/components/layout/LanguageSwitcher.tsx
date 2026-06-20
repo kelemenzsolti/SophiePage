@@ -63,7 +63,7 @@ export function LanguageSwitcher({
         </button>
 
         {open && (
-          <div className="absolute right-0 top-full z-50 mt-2 min-w-[88px] overflow-hidden rounded-xl border border-charcoal/10 bg-cream shadow-card">
+          <div className="dropdown-menu min-w-[88px]">
             {(['hu', 'en'] as Language[]).map((lang) => (
               <button
                 key={lang}
@@ -114,7 +114,7 @@ export function LanguageSwitcher({
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 min-w-[120px] overflow-hidden rounded-xl border border-charcoal/10 bg-cream shadow-card">
+        <div className="dropdown-menu min-w-[120px]">
           {(['hu', 'en'] as Language[]).map((lang) => (
             <button
               key={lang}
