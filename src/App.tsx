@@ -1,4 +1,5 @@
 import { Navbar } from './components/layout/Navbar';
+import { Booking } from './components/sections/Booking';
 import { Footer } from './components/sections/Footer';
 import { Hero } from './components/sections/Hero';
 import { Services } from './components/sections/Services';
@@ -13,6 +14,7 @@ function App() {
         <Hero />
         <VideoSection />
         <Services />
+        <Booking />
         <Testimonials />
       </main>
       <Footer />

@@ -58,6 +58,43 @@ export const translations = {
         },
       ],
     },
+    booking: {
+      title: 'Időpontfoglalás',
+      subtitle:
+        'Az első kapcsolatfelvétel néhány egyszerű lépésben történik, hogy nyugodtan és biztonságosan indulhasson el a közös munka.',
+      steps: [
+        {
+          label: '1. lépés',
+          title: 'Kapcsolatfelvétel',
+          description:
+            'Írjon e-mailt vagy hívjon bizalommal, röviden megosztva, miben kérne támogatást.',
+        },
+        {
+          label: '2. lépés',
+          title: 'Időpont egyeztetése',
+          description:
+            'Közösen kiválasztjuk az Ön számára legmegfelelőbb időpontot és megbeszéljük a kereteket.',
+        },
+        {
+          label: '3. lépés',
+          title: 'Első konzultáció',
+          description:
+            'Az első alkalmon áttekintjük a hozott nehézségeket, a célokat és a lehetséges közös irányokat.',
+        },
+      ],
+      card: {
+        eyebrow: 'Kapcsolat',
+        title: 'Foglaljon első alkalmat',
+        description:
+          'Ha készen áll az elindulásra, vegye fel velem a kapcsolatot, és rövid időn belül válaszolok.',
+        emailLabel: 'E-mail',
+        phoneLabel: 'Telefon',
+        emailAction: 'E-mail megnyitása',
+        phoneAction: 'Hívás indítása',
+        emailSubject: 'Időpontfoglalás',
+        cta: 'Kapcsolatfelvétel e-mailben',
+      },
+    },
     testimonials: {
       title: 'Vélemények',
       subtitle: 'Ügyfeleim tapasztalatai anonim módon, hálás szívvel megosztva.',
@@ -93,6 +130,10 @@ export const translations = {
       contactTitle: 'Kapcsolat',
       email: 'hello@czarthzsofia.hu',
       phone: '+36 30 123 4567',
+      emailLabel: 'E-mail',
+      phoneLabel: 'Telefon',
+      emailAction: 'E-mail megnyitása',
+      phoneAction: 'Hívás indítása',
       location: 'Budapest, Magyarország',
       socialTitle: 'Kövessen',
       legal: '© 2026 Czárth Zsófia. Minden jog fenntartva.',
@@ -160,6 +201,43 @@ export const translations = {
         },
       ],
     },
+    booking: {
+      title: 'Book a Session',
+      subtitle:
+        'The first contact happens in a few simple steps, so our work together can begin in a calm and safe way.',
+      steps: [
+        {
+          label: 'Step 1',
+          title: 'Get in Touch',
+          description:
+            'Send an email or call, and briefly share what kind of support you are looking for.',
+        },
+        {
+          label: 'Step 2',
+          title: 'Schedule a Time',
+          description:
+            'Together we choose a suitable time and go over the practical details of meeting.',
+        },
+        {
+          label: 'Step 3',
+          title: 'First Consultation',
+          description:
+            'In the first session, we review your current challenges, goals, and possible directions for our work together.',
+        },
+      ],
+      card: {
+        eyebrow: 'Contact',
+        title: 'Arrange Your First Session',
+        description:
+          'If you feel ready to begin, reach out and I will get back to you shortly.',
+        emailLabel: 'Email',
+        phoneLabel: 'Phone',
+        emailAction: 'Open email',
+        phoneAction: 'Start call',
+        emailSubject: 'Booking Request',
+        cta: 'Contact by Email',
+      },
+    },
     testimonials: {
       title: 'Testimonials',
       subtitle: 'Shared with gratitude — anonymous experiences from my clients.',
@@ -195,6 +273,10 @@ export const translations = {
       contactTitle: 'Contact',
       email: 'hello@czarthzsofia.hu',
       phone: '+36 30 123 4567',
+      emailLabel: 'Email',
+      phoneLabel: 'Phone',
+      emailAction: 'Open email',
+      phoneAction: 'Start call',
       location: 'Budapest, Hungary',
       socialTitle: 'Follow',
       legal: '© 2026 Zsófia Czárth. All rights reserved.',

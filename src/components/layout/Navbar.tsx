@@ -70,7 +70,7 @@ export function Navbar() {
           <LanguageSwitcher light={!scrolled} />
 
           <a
-            href="#contact"
+            href="#booking"
             className="btn-primary px-5 py-2.5"
           >
             {t.nav.bookSession}
@@ -127,7 +127,7 @@ export function Navbar() {
             ))}
             <li className="pt-2">
               <a
-                href="#contact"
+                href="#booking"
                 onClick={() => setMobileOpen(false)}
                 className="btn-primary px-5 py-2.5"
               >
