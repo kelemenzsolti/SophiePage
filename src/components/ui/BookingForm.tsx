@@ -23,6 +23,7 @@ export function BookingForm() {
       return;
     }
 
+    
     setStatus('submitting');
 
     try {
