@@ -4,6 +4,7 @@ import { fadeUp } from '../ui/Section';
 
 export function Hero() {
   const { t } = useTranslation();
+  const heroImageSrc = `${import.meta.env.BASE_URL}assets/hero.png`;
 
   return (
     <section
@@ -11,7 +12,7 @@ export function Hero() {
       className="relative min-h-[90vh] overflow-hidden lg:min-h-screen"
     >
       <img
-        src="/assets/hero.png"
+        src={heroImageSrc}
         alt={t.hero.imageAlt}
         className="absolute inset-0 h-full w-full object-cover object-[30%_center] md:object-[25%_center]"
       />
