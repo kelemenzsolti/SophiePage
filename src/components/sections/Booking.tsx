@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from '../../hooks/useTranslation';
+import { BookingForm } from '../ui/BookingForm';
 import { ProtectedContactLink } from '../ui/ProtectedContactLink';
 import { Section, SectionHeader } from '../ui/Section';
 
@@ -56,12 +57,6 @@ const stepIcons = [
 
 export function Booking() {
   const { t } = useTranslation();
-  const handleEmailClick = () => {
-    const email = ['hello', 'czarthzsofia', 'hu'];
-    window.location.href = `mailto:${email[0]}@${email[1]}.${email[2]}?subject=${encodeURIComponent(
-      t.booking.card.emailSubject,
-    )}`;
-  };
 
   return (
     <Section id="booking" className="bg-gradient-to-b from-cream to-olive/10">
@@ -124,30 +119,15 @@ export function Booking() {
             {t.booking.card.description}
           </p>
 
-          <div className="mt-8 space-y-4 text-sm text-charcoal/75">
-            <div className="rounded-2xl border border-subtle bg-cream/70 p-4">
-              <ProtectedContactLink
-                type="email"
-                label={t.booking.card.emailLabel}
-                actionLabel={t.booking.card.emailAction}
-              />
-            </div>
-            <div className="rounded-2xl border border-subtle bg-cream/70 p-4">
-              <ProtectedContactLink
-                type="phone"
-                label={t.booking.card.phoneLabel}
-                actionLabel={t.booking.card.phoneAction}
-              />
-            </div>
-          </div>
+          <BookingForm />
 
-          <button
-            type="button"
-            onClick={handleEmailClick}
-            className="btn-primary mt-8 w-full px-6 py-3.5 text-center"
-          >
-            {t.booking.card.cta}
-          </button>
+          <div className="mt-6 rounded-2xl border border-subtle bg-cream/70 p-4 text-sm text-charcoal/75">
+            <ProtectedContactLink
+              type="phone"
+              label={t.booking.card.phoneLabel}
+              actionLabel={t.booking.card.phoneAction}
+            />
+          </div>
         </motion.aside>
       </div>
     </Section>
