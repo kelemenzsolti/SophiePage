@@ -64,14 +64,12 @@ export function Footer() {
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-cream/70">
               <li>
-                <ProtectedContactLink
-                  type="email"
-                  label={t.footer.emailLabel}
-                  actionLabel={t.footer.emailAction}
-                  labelClassName="text-cream/90"
-                  previewClassName="text-cream/55"
-                  actionClassName="text-terracotta hover:text-cream"
-                />
+                <a
+                  href="#booking"
+                  className="font-medium text-cream/90 transition-colors hover:text-terracotta"
+                >
+                  {t.footer.formLink}
+                </a>
               </li>
               <li>
                 <ProtectedContactLink

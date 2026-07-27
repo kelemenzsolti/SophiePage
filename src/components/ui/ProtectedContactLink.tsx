@@ -1,5 +1,5 @@
 interface ProtectedContactLinkProps {
-  type: 'email' | 'phone';
+  type: "email" | "phone";
   label: string;
   actionLabel: string;
   className?: string;
@@ -8,35 +8,37 @@ interface ProtectedContactLinkProps {
   actionClassName?: string;
 }
 
-const emailParts = ['hello', 'czarthzsofia', 'hu'];
-const phoneParts = ['+36', '30', '123', '4567'];
+const emailParts = ["zsolti.kelemen1999", "gmail", "com"];
+const phoneParts = ["+36", "30", "123", "4567"];
 
-function getEmail() {
+export function getProtectedEmail() {
   return `${emailParts[0]}@${emailParts[1]}.${emailParts[2]}`;
 }
 
 function getPhoneHref() {
-  return phoneParts.join('');
+  return phoneParts.join("");
 }
 
 export function ProtectedContactLink({
   type,
   label,
   actionLabel,
-  className = '',
-  labelClassName = 'text-charcoal',
-  previewClassName = 'text-charcoal/60',
-  actionClassName = 'text-terracotta hover:text-charcoal',
+  className = "",
+  labelClassName = "text-charcoal",
+  previewClassName = "text-charcoal/60",
+  actionClassName = "text-terracotta hover:text-charcoal",
 }: ProtectedContactLinkProps) {
   const handleClick = () => {
     const href =
-      type === 'email' ? `mailto:${getEmail()}` : `tel:${getPhoneHref()}`;
+      type === "email"
+        ? `mailto:${getProtectedEmail()}`
+        : `tel:${getPhoneHref()}`;
 
     window.location.href = href;
   };
 
   const preview =
-    type === 'email'
+    type === "email"
       ? `${emailParts[0]} [@] ${emailParts[1]} [.] ${emailParts[2]}`
       : `${phoneParts[0]} ${phoneParts[1]} XXX XXXX`;
 
