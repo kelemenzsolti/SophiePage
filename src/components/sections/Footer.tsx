@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from '../../hooks/useTranslation';
+import { ProtectedContactLink } from '../ui/ProtectedContactLink';
 
 const socialLinks = [
   {
@@ -50,7 +51,7 @@ export function Footer() {
               {t.footer.tagline}
             </p>
             <a
-              href="#contact"
+              href="#booking"
               className="btn-primary mt-6 px-6 py-3"
             >
               {t.nav.bookSession}
@@ -63,20 +64,24 @@ export function Footer() {
             </h3>
             <ul className="mt-5 space-y-3 text-sm text-cream/70">
               <li>
-                <a
-                  href={`mailto:${t.footer.email}`}
-                  className="transition-colors hover:text-terracotta"
-                >
-                  {t.footer.email}
-                </a>
+                <ProtectedContactLink
+                  type="email"
+                  label={t.footer.emailLabel}
+                  actionLabel={t.footer.emailAction}
+                  labelClassName="text-cream/90"
+                  previewClassName="text-cream/55"
+                  actionClassName="text-terracotta hover:text-cream"
+                />
               </li>
               <li>
-                <a
-                  href={`tel:${t.footer.phone.replace(/\s/g, '')}`}
-                  className="transition-colors hover:text-terracotta"
-                >
-                  {t.footer.phone}
-                </a>
+                <ProtectedContactLink
+                  type="phone"
+                  label={t.footer.phoneLabel}
+                  actionLabel={t.footer.phoneAction}
+                  labelClassName="text-cream/90"
+                  previewClassName="text-cream/55"
+                  actionClassName="text-terracotta hover:text-cream"
+                />
               </li>
               <li>{t.footer.location}</li>
             </ul>
