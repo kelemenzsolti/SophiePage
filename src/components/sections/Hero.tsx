@@ -7,10 +7,7 @@ export function Hero() {
   const heroImageSrc = `${import.meta.env.BASE_URL}assets/herov2.jpg`;
 
   return (
-    <section
-      id="about"
-      className="relative min-h-[90vh] overflow-hidden lg:min-h-screen"
-    >
+    <section className="relative min-h-[90vh] overflow-hidden lg:min-h-screen">
       <img
         src={heroImageSrc}
         alt={t.hero.imageAlt}

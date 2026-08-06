@@ -39,7 +39,7 @@ export function Navbar() {
           : 'bg-gradient-to-b from-charcoal/40 to-transparent'
       }`}
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-2 lg:px-8">
         <a
           href="#"
           className={`font-serif text-xl font-semibold tracking-tight transition-colors md:text-2xl ${
