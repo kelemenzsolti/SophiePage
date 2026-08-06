@@ -121,13 +121,13 @@ export function Booking() {
 
           <BookingForm />
 
-          <div className="mt-6 rounded-2xl border border-subtle bg-cream/70 p-4 text-sm text-dark-slate/75">
+          {/*<div className="mt-6 rounded-2xl border border-subtle bg-cream/70 p-4 text-sm text-dark-slate/75">
             <ProtectedContactLink
               type="phone"
               label={t.booking.card.phoneLabel}
               actionLabel={t.booking.card.phoneAction}
             />
-          </div>
+          </div>*/}
         </motion.aside>
       </div>
     </Section>

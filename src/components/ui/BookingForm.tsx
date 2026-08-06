@@ -11,6 +11,7 @@ export function BookingForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
 
@@ -23,7 +24,6 @@ export function BookingForm() {
       return;
     }
 
-    
     setStatus('submitting');
 
     try {
@@ -39,6 +39,7 @@ export function BookingForm() {
           name,
           email,
           phone: phone || t.booking.form.notProvided,
+          category: category || t.booking.form.notProvided,
           message,
           from_name: t.booking.form.fromName,
         }),
@@ -53,6 +54,7 @@ export function BookingForm() {
       setName('');
       setEmail('');
       setPhone('');
+      setCategory('');
       setMessage('');
       setStatus('success');
     } catch {
@@ -62,6 +64,7 @@ export function BookingForm() {
 
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+      {/* Név mező */}
       <div>
         <label htmlFor="booking-name" className="mb-1.5 block text-sm font-medium text-charcoal">
           {t.booking.form.nameLabel}
@@ -79,42 +82,73 @@ export function BookingForm() {
         />
       </div>
 
+      {/* E-mail és Telefon grid */}
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label htmlFor="booking-email" className="mb-1.5 block text-sm font-medium text-charcoal">
+            {t.booking.form.emailLabel}
+          </label>
+          <input
+            id="booking-email"
+            type="email"
+            required
+            autoComplete="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            placeholder={t.booking.form.emailPlaceholder}
+            className={inputClassName}
+            disabled={status === 'submitting'}
+          />
+        </div>
+        <div>
+          <label htmlFor="booking-phone" className="mb-1.5 block text-sm font-medium text-charcoal">
+            {t.booking.form.phoneLabel}
+            <span className="ml-1 font-normal text-charcoal/50">
+              ({t.booking.form.optional})
+            </span>
+          </label>
+          <input
+            id="booking-phone"
+            type="tel"
+            autoComplete="tel"
+            value={phone}
+            onChange={(event) => setPhone(event.target.value)}
+            placeholder={t.booking.form.phonePlaceholder}
+            className={inputClassName}
+            disabled={status === 'submitting'}
+          />
+        </div>
+      </div>
+
+      {/* Kategória választó */}
       <div>
-        <label htmlFor="booking-email" className="mb-1.5 block text-sm font-medium text-charcoal">
-          {t.booking.form.emailLabel}
+        <label htmlFor="booking-category" className="mb-1.5 block text-sm font-medium text-charcoal">
+          {t.booking.form.categoryLabel}
         </label>
-        <input
-          id="booking-email"
-          type="email"
+        <select
+          id="booking-category"
           required
-          autoComplete="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          placeholder={t.booking.form.emailPlaceholder}
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
           className={inputClassName}
           disabled={status === 'submitting'}
-        />
+        >
+          <option value="" disabled>
+            {t.booking.form.categoryPlaceholder}
+          </option>
+          <option value={t.booking.form.categories.individual}>
+            {t.booking.form.categories.individual}
+          </option>
+          <option value={t.booking.form.categories.sports}>
+            {t.booking.form.categories.sports}
+          </option>
+          <option value={t.booking.form.categories.parenting}>
+            {t.booking.form.categories.parenting}
+          </option>
+        </select>
       </div>
 
-      <div>
-        <label htmlFor="booking-phone" className="mb-1.5 block text-sm font-medium text-charcoal">
-          {t.booking.form.phoneLabel}
-          <span className="ml-1 font-normal text-charcoal/50">
-            ({t.booking.form.optional})
-          </span>
-        </label>
-        <input
-          id="booking-phone"
-          type="tel"
-          autoComplete="tel"
-          value={phone}
-          onChange={(event) => setPhone(event.target.value)}
-          placeholder={t.booking.form.phonePlaceholder}
-          className={inputClassName}
-          disabled={status === 'submitting'}
-        />
-      </div>
-
+      {/* Üzenet mező (min-h-val és resize-y-al biztosítva, hogy ne lehessen kisebbre venni) */}
       <div>
         <label htmlFor="booking-message" className="mb-1.5 block text-sm font-medium text-charcoal">
           {t.booking.form.messageLabel}
@@ -122,11 +156,11 @@ export function BookingForm() {
         <textarea
           id="booking-message"
           required
-          rows={4}
+          rows={3}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           placeholder={t.booking.form.messagePlaceholder}
-          className={`${inputClassName} resize-none`}
+          className={`${inputClassName} min-h-[100px] resize-y`}
           disabled={status === 'submitting'}
         />
       </div>
@@ -146,7 +180,7 @@ export function BookingForm() {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="btn-primary w-full px-6 py-3.5 disabled:cursor-not-allowed disabled:opacity-70"
+        className="btn-primary w-full px-6 py-3.5 text-center disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === 'submitting' ? t.booking.form.sending : t.booking.form.submit}
       </button>

@@ -13,6 +13,7 @@ export const translations = {
       logo: 'Czárth Zsófia',
       about: 'Rólam',
       services: 'Szakterületek',
+      pricing: 'Árak',
       testimonials: 'Vélemények',
       contact: 'Kapcsolat',
       bookSession: 'Időpontfoglalás',
@@ -59,7 +60,7 @@ export const translations = {
             'Tanulási gátak, motivációhiány, kortárs kapcsolatok és iskolai beilleszkedési nehézségek kezelése (1–12. osztály).',
         },
         {
-          title: 'Sportpszichológia & Mentáltréning',
+          title: 'Sportpszichológiai tanácsadás',
           description:
             'Versenynyomás és teljesítményszorongás kezelése, mentális fókusz, önbizalomépítés és sérülés utáni visszatérés.',
         },
@@ -69,9 +70,61 @@ export const translations = {
             'Identitáskeresés, pályaválasztási stressz, önértékelési zavarok és érzelemszabályozás támogatása.',
         },
         {
-          title: 'Szülői konzultáció & Családi dinamikák',
+          title: 'Szülő konzultáció',
           description:
             'Támogató beszélgetések szülőknek a nevelési elakadásokról, a határok meghúzásáról és a családi egyensúlyról.',
+        },
+      ],
+    },
+    pricing: {
+      title: 'Árak',
+      subtitle:
+        'Átlátható díjak – minden alkalom előre egyeztetett időpontban, személyesen vagy online.',
+      durationLabel: 'Időtartam',
+      perSession: '/ alkalom',
+      featuredLabel: 'Leggyakoribb',
+      cta: 'Időpontfoglalás',
+      note:
+        'Az első konzultáció díja a fenti árak 50%-a. Kiskorú ügyfelek esetén szülői hozzájárulás szükséges. Az árak 2026 augusztusától érvényesek; egyedi igények esetén kérj egyedi ajánlatot.',
+      items: [
+        {
+          title: 'Egyéni tanácsadás (diák / fiatal)',
+          duration: '60 perc',
+          price: '13 000 Ft',
+          description:
+            'Iskolai elakadások, szorongás, motiváció és kortárs kapcsolatok támogatása 1–12. osztályos korosztálynak.',
+          featured: false,
+          features: [
+            'Személyes vagy online ülés',
+            'Egyéni fejlődési terv',
+            'Szülői visszajelzés igény szerint',
+          ],
+        },
+        {
+          title: 'Sportpszichológiai tanácsadás',
+          duration: '90 perc',
+          price: '20 000 Ft',
+          description:
+            'Versenynyomás, teljesítményszorongás, fókusz és önbizalom fejlesztése fiatal és felnőtt sportolóknak.',
+          featured: true,
+          features: [
+            'Mentális felkészítés versenyekre',
+            'Gyakorlati technikák az edzésre is',
+            'Online vagy személyes formában',
+          ],
+        },
+        {
+          title: 'Szülő konzultáció & tanácsadás',
+          duration: '60 perc',
+          price: '10 000 Ft',
+          description:
+            'Nevelési kérdések, családi dinamikák és a gyermek iskolai/sportbeli támogatásának egyeztetése.',
+          featured: false,
+          features: [
+            'Gyakorlati nevelési stratégiák',
+            'Kapcsolódó diákülés koordinálása',
+            'Rövid távú célok meghatározása',
+          ],
         },
       ],
     },
@@ -123,8 +176,14 @@ export const translations = {
         submit: 'Küldés',
         sending: 'Küldés...',
         success: 'Köszönöm! Az üzenetet megkaptam, hamarosan válaszolok.',
-        error:
-          'Az üzenet küldése nem sikerült. Kérlek próbáld újra, vagy hívj telefonon.',
+        error: 'Az üzenet küldése nem sikerült. Kérlek próbáld újra, vagy hívj telefonon.',
+        categoryLabel: 'Szolgáltatás kategória',
+        categoryPlaceholder: 'Válassz kategóriát...',
+        categories: {
+          individual: 'Egyéni tanácsadás (diák / fiatal)',
+          sports: 'Sportpszichológiai tanácsadás',
+          parenting: 'Szülő konzultáció & tanácsadás',
+        },
       },
     },
     testimonials: {
@@ -187,6 +246,7 @@ export const translations = {
       logo: 'Czárth Zsófia',
       about: 'About',
       services: 'Services',
+      pricing: 'Pricing',
       testimonials: 'Testimonials',
       contact: 'Contact',
       bookSession: 'Book a Session',
@@ -233,7 +293,7 @@ export const translations = {
             'Addressing learning barriers, lack of motivation, peer relationships, and school integration (Grades 1–12).',
         },
         {
-          title: 'Sport Psychology & Mental Training',
+          title: 'Sport Psychology Consultation',
           description:
             'Managing competition pressure, performance anxiety, building confidence, and post-injury mental recovery.',
         },
@@ -243,9 +303,61 @@ export const translations = {
             'Navigating identity formation, career choices, self-esteem challenges, and emotional regulation.',
         },
         {
-          title: 'Parent Consultation & Family Dynamics',
+          title: 'Parent Consultation',
           description:
             'Supportive guidance for parents on developmental milestones, setting boundaries, and family harmony.',
+        },
+      ],
+    },
+    pricing: {
+      title: 'Pricing',
+      subtitle:
+        'Transparent fees for every session — in person or online, at a scheduled time that works for you.',
+      durationLabel: 'Duration',
+      perSession: 'per session',
+      featuredLabel: 'Most popular',
+      cta: 'Book a Session',
+      note:
+        'The fee for the first consultation is 50% off the prices listed above. Parental consent is required for minor clients. Prices are valid from August 2026; please request a quote for custom requests.',
+      items: [
+        {
+          title: 'Individual Counseling (Student / Youth)',
+          duration: '60 minutes',
+          price: 'HUF 13,000',
+          description:
+            'Support for school challenges, anxiety, motivation, and peer relationships for grades 1–12.',
+          featured: false,
+          features: [
+            'In-person or online session',
+            'Personalized development plan',
+            'Parent feedback on request',
+          ],
+        },
+        {
+          title: 'Sport Psychology Consultation',
+          duration: '90 minutes',
+          price: 'HUF 20,000',
+          description:
+            'Competition pressure, performance anxiety, focus, and confidence for young and adult athletes.',
+          featured: true,
+          features: [
+            'Mental preparation for competitions',
+            'Practical techniques for training too',
+            'Available online or in person',
+          ],
+        },
+        {
+          title: 'Parent Consultation & Guidance',
+          duration: '60 minutes',
+          price: 'HUF 10,000',
+          description:
+            'Parenting questions, family dynamics, and coordinating support for your child at school or in sport.',
+          featured: false,
+          features: [
+            'Practical parenting strategies',
+            'Coordination with student sessions',
+            'Short-term goal setting',
+          ],
         },
       ],
     },
@@ -297,8 +409,14 @@ export const translations = {
         submit: 'Send Message',
         sending: 'Sending...',
         success: 'Thank you! Your message has been sent. I will reply soon.',
-        error:
-          'Your message could not be sent. Please try again or call by phone.',
+        error: 'Your message could not be sent. Please try again or call by phone.',
+        categoryLabel: 'Service Category',
+        categoryPlaceholder: 'Select a category...',
+        categories: {
+          individual: 'Individual Counseling (Student / Youth)',
+          sports: 'Sport Psychology Consultation',
+          parenting: 'Parent Consultation & Guidance',
+        },
       },
     },
     testimonials: {
