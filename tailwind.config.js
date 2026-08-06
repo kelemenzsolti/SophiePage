@@ -4,10 +4,11 @@ export default {
   theme: {
     extend: {
       colors: {
+        forest: 'rgb(var(--color-forest) / <alpha-value>)',
         terracotta: 'rgb(var(--color-terracotta) / <alpha-value>)',
+        ochre: 'rgb(var(--color-ochre) / <alpha-value>)',
         cream: 'rgb(var(--color-cream) / <alpha-value>)',
-        olive: 'rgb(var(--color-olive) / <alpha-value>)',
-        charcoal: 'rgb(var(--color-charcoal) / <alpha-value>)',
+        'dark-slate': 'rgb(var(--color-slate) / <alpha-value>)',
       },
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],

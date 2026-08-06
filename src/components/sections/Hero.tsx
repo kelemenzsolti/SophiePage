@@ -4,7 +4,7 @@ import { fadeUp } from '../ui/Section';
 
 export function Hero() {
   const { t } = useTranslation();
-  const heroImageSrc = `${import.meta.env.BASE_URL}assets/hero.png`;
+  const heroImageSrc = `${import.meta.env.BASE_URL}assets/herov2.jpg`;
 
   return (
     <section
@@ -17,8 +17,8 @@ export function Hero() {
         className="absolute inset-0 h-full w-full object-cover object-[30%_center] md:object-[25%_center]"
       />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/55 via-charcoal/35 to-charcoal/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-charcoal/20 lg:bg-gradient-to-r lg:from-charcoal/50 lg:via-charcoal/20 lg:to-charcoal/65" />
+      <div className="absolute inset-0 bg-gradient-to-r from-dark-slate/55 via-dark-slate/35 to-dark-slate/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-dark-slate/40 via-transparent to-dark-slate/20 lg:bg-gradient-to-r lg:from-dark-slate/50 lg:via-dark-slate/20 lg:to-dark-slate/65" />
 
       <div className="relative mx-auto flex min-h-[90vh] max-w-7xl items-end px-6 pb-16 pt-32 md:items-center md:pb-20 md:pt-36 lg:min-h-screen lg:px-8">
         <motion.div

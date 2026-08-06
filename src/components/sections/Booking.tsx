@@ -59,7 +59,7 @@ export function Booking() {
   const { t } = useTranslation();
 
   return (
-    <Section id="booking" className="bg-gradient-to-b from-cream to-olive/10">
+    <Section id="booking" className="bg-gradient-to-b from-cream to-forest/5">
       <SectionHeader
         title={t.booking.title}
         subtitle={t.booking.subtitle}
@@ -86,14 +86,14 @@ export function Booking() {
                 </div>
                 <div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-olive">
+                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-forest">
                       {step.label}
                     </span>
                   </div>
-                  <h3 className="mt-2 font-serif text-2xl font-medium text-charcoal">
+                  <h3 className="mt-2 font-serif text-2xl font-medium text-dark-slate">
                     {step.title}
                   </h3>
-                  <p className="mt-3 leading-relaxed text-charcoal/70">
+                  <p className="mt-3 leading-relaxed text-dark-slate/70">
                     {step.description}
                   </p>
                 </div>
@@ -112,16 +112,16 @@ export function Booking() {
           <p className="text-sm font-medium uppercase tracking-[0.2em] text-terracotta">
             {t.booking.card.eyebrow}
           </p>
-          <h3 className="mt-4 font-serif text-3xl font-medium text-charcoal">
+          <h3 className="mt-4 font-serif text-3xl font-medium text-dark-slate">
             {t.booking.card.title}
           </h3>
-          <p className="mt-4 leading-relaxed text-charcoal/70">
+          <p className="mt-4 leading-relaxed text-dark-slate/70">
             {t.booking.card.description}
           </p>
 
           <BookingForm />
 
-          <div className="mt-6 rounded-2xl border border-subtle bg-cream/70 p-4 text-sm text-charcoal/75">
+          <div className="mt-6 rounded-2xl border border-subtle bg-cream/70 p-4 text-sm text-dark-slate/75">
             <ProtectedContactLink
               type="phone"
               label={t.booking.card.phoneLabel}

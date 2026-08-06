@@ -5,14 +5,15 @@
 @layer base {
   :root {
     /* Colors (RGB channels for Tailwind opacity modifiers) */
-    --color-terracotta: 197 123 87;
-    --color-cream: 253 251 247;
-    --color-olive: 132 140 114;
-    --color-charcoal: 47 62 70;
+    --color-forest: 43 76 63;      /* #2b4c3f - Deep Forest Green */
+    --color-terracotta: 188 90 58;  /* #bc5a3a - Terracotta Warmth */
+    --color-ochre: 212 163 115;    /* #d4a373 - Soft Ochre Accent */
+    --color-cream: 250 247 242;    /* #faf7f2 - Warm Cream */
+    --color-slate: 28 40 38;       /* #1c2826 - Deep Slate Text */
 
     /* Shadows */
-    --shadow-soft: 0 4px 24px rgb(var(--color-charcoal) / 0.08);
-    --shadow-card: 0 8px 32px rgb(var(--color-charcoal) / 0.1);
+    --shadow-soft: 0 4px 24px rgb(var(--color-slate) / 0.06);
+    --shadow-card: 0 8px 32px rgb(var(--color-slate) / 0.08);
 
     /* Radii */
     --radius-card: 1rem;
@@ -20,18 +21,18 @@
     --radius-pill: 9999px;
 
     /* Borders */
-    --border-subtle: rgb(var(--color-charcoal) / 0.05);
-    --border-default: rgb(var(--color-charcoal) / 0.1);
+    --border-subtle: rgb(var(--color-forest) / 0.08);
+    --border-default: rgb(var(--color-forest) / 0.15);
 
     /* Gradients */
     --gradient-terracotta-glow: radial-gradient(
       circle at 30% 40%,
-      rgb(var(--color-terracotta) / 0.25),
+      rgb(var(--color-terracotta) / 0.18),
       transparent 55%
     );
-    --gradient-olive-glow: radial-gradient(
+    --gradient-forest-glow: radial-gradient(
       circle at 70% 60%,
-      rgb(var(--color-olive) / 0.2),
+      rgb(var(--color-forest) / 0.12),
       transparent 50%
     );
   }
@@ -41,17 +42,17 @@
   }
 
   body {
-    @apply bg-cream font-sans text-charcoal antialiased;
+    @apply bg-cream font-sans text-dark-slate antialiased;
   }
 
   ::selection {
-    @apply bg-terracotta/20 text-charcoal;
+    @apply bg-terracotta/20 text-dark-slate;
   }
 }
 
 @layer components {
   .card {
-    @apply rounded-card border border-subtle bg-cream;
+    @apply rounded-card border border-subtle bg-white/80 backdrop-blur-sm;
   }
 
   .card-elevated {
@@ -59,7 +60,7 @@
   }
 
   .card-interactive {
-    @apply card shadow-soft transition-all hover:-translate-y-1 hover:border-terracotta/20 hover:shadow-card;
+    @apply card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-card;
   }
 
   .card-feature {
@@ -67,15 +68,19 @@
   }
 
   .card-panel {
-    @apply overflow-hidden rounded-card-lg border border-subtle bg-cream/80 shadow-card backdrop-blur-sm;
+    @apply overflow-hidden rounded-card-lg border border-subtle bg-white/90 shadow-card backdrop-blur-sm;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-terracotta text-sm font-medium text-cream shadow-soft transition-all hover:bg-terracotta/90 hover:shadow-card;
+    @apply inline-flex items-center justify-center rounded-full bg-terracotta text-sm font-medium text-cream shadow-soft transition-all duration-300 hover:bg-terracotta/90 hover:shadow-card active:scale-[0.98];
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-full border border-forest/20 bg-transparent text-sm font-medium text-forest transition-all duration-300 hover:border-forest hover:bg-forest/5;
   }
 
   .dropdown-menu {
-    @apply absolute right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-muted bg-cream shadow-card;
+    @apply absolute right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-subtle bg-cream shadow-card;
   }
 }
 
@@ -88,7 +93,7 @@
     background-image: var(--gradient-terracotta-glow);
   }
 
-  .bg-gradient-olive-glow {
-    background-image: var(--gradient-olive-glow);
+  .bg-gradient-forest-glow {
+    background-image: var(--gradient-forest-glow);
   }
 }

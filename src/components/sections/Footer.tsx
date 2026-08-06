@@ -36,7 +36,7 @@ export function Footer() {
   const { t } = useTranslation();
 
   return (
-    <footer id="contact" className="border-t border-subtle bg-charcoal text-cream">
+    <footer id="contact" className="border-t border-subtle bg-dark-slate text-cream">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <motion.div
           className="grid gap-12 md:grid-cols-2 lg:grid-cols-4"

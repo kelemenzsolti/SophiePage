@@ -49,10 +49,10 @@ export function Services() {
             <div className="mb-5 inline-flex rounded-xl bg-terracotta/10 p-3 text-terracotta transition-colors group-hover:bg-terracotta group-hover:text-cream">
               {icons[index]}
             </div>
-            <h3 className="font-serif text-2xl font-medium text-charcoal">
+            <h3 className="font-serif text-2xl font-medium text-dark-slate">
               {item.title}
             </h3>
-            <p className="mt-3 leading-relaxed text-charcoal/70">{item.description}</p>
+            <p className="mt-3 leading-relaxed text-dark-slate/70">{item.description}</p>
           </motion.article>
         ))}
       </div>
