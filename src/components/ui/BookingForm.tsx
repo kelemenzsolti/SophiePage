@@ -1,10 +1,18 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
+import { getCalApi } from '@calcom/embed-react';
 
 const inputClassName =
   'w-full rounded-xl border border-subtle bg-cream px-4 py-3 text-sm text-charcoal outline-none transition-colors placeholder:text-charcoal/40 focus:border-terracotta/40 focus:ring-2 focus:ring-terracotta/10';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
+
+// Összekötjük a kategóriákat a Cal.com útvonalaikkal
+const calLinksMap: Record<string, string> = {
+  'Egyéni tanácsadás (diák / fiatal)': 'zsolt-kelemen-brcxcl/30min',
+  'Sportpszichológiai tanácsadás': 'zsolt-kelemen-brcxcl/secret',
+  'Szülői konzultáció és nevelési támogatás': 'zsolt-kelemen-brcxcl/15min',
+};
 
 export function BookingForm() {
   const { t } = useTranslation();
@@ -14,6 +22,18 @@ export function BookingForm() {
   const [category, setCategory] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
+
+  // Cal.com inicializálása
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi();
+      cal('ui', {
+        styles: { branding: { brandColor: '#b85d41' } },
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      });
+    })();
+  }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -62,9 +82,11 @@ export function BookingForm() {
     }
   };
 
+  // Kiválasztott kategóriához tartozó Cal.com link meghatározása
+  const currentCalLink = calLinksMap[category] || 'zsolt-kelemen-brcxcl/30min';
+
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-      {/* Név mező */}
       <div>
         <label htmlFor="booking-name" className="mb-1.5 block text-sm font-medium text-charcoal">
           {t.booking.form.nameLabel}
@@ -82,7 +104,6 @@ export function BookingForm() {
         />
       </div>
 
-      {/* E-mail és Telefon grid */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label htmlFor="booking-email" className="mb-1.5 block text-sm font-medium text-charcoal">
@@ -120,7 +141,6 @@ export function BookingForm() {
         </div>
       </div>
 
-      {/* Kategória választó */}
       <div>
         <label htmlFor="booking-category" className="mb-1.5 block text-sm font-medium text-charcoal">
           {t.booking.form.categoryLabel}
@@ -148,7 +168,6 @@ export function BookingForm() {
         </select>
       </div>
 
-      {/* Üzenet mező (min-h-val és resize-y-al biztosítva, hogy ne lehessen kisebbre venni) */}
       <div>
         <label htmlFor="booking-message" className="mb-1.5 block text-sm font-medium text-charcoal">
           {t.booking.form.messageLabel}
@@ -183,6 +202,15 @@ export function BookingForm() {
         className="btn-primary w-full px-6 py-3.5 text-center disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === 'submitting' ? t.booking.form.sending : t.booking.form.submit}
+      </button>
+
+      {/* Dinamikusan a kiválasztott kategória naptárát nyitja meg */}
+      <button
+        type="button"
+        data-cal-link={currentCalLink}
+        className="mt-2 w-full rounded-xl border border-terracotta/30 bg-white py-3 text-center text-sm font-medium text-terracotta transition-colors hover:bg-terracotta/5"
+      >
+        {category ? 'Időpont kiválasztása a naptárban (Valós időben)' : 'Kérlek előbb válassz kategóriát fent'}
       </button>
     </form>
   );
