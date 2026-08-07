@@ -19,7 +19,7 @@ export function BookingForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState<string>(t.booking.form.categories.individual);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
 
@@ -74,7 +74,7 @@ export function BookingForm() {
       setName('');
       setEmail('');
       setPhone('');
-      setCategory('');
+      setCategory(t.booking.form.categories.individual);
       setMessage('');
       setStatus('success');
     } catch {
@@ -204,13 +204,15 @@ export function BookingForm() {
         {status === 'submitting' ? t.booking.form.sending : t.booking.form.submit}
       </button>
 
+      <div className="font-serif text-center text-lg">{t.booking.form.or}</div>
+
       {/* Dinamikusan a kiválasztott kategória naptárát nyitja meg */}
       <button
         type="button"
         data-cal-link={currentCalLink}
         className="mt-2 w-full rounded-xl border border-terracotta/30 bg-white py-3 text-center text-sm font-medium text-terracotta transition-colors hover:bg-terracotta/5"
       >
-        {category ? 'Időpont kiválasztása a naptárban (Valós időben)' : 'Kérlek előbb válassz kategóriát fent'}
+        {category ? t.booking.form.chooseDate : t.booking.form.chooseCategory}
       </button>
     </form>
   );

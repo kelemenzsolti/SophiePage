@@ -184,6 +184,9 @@ export const translations = {
           sports: 'Sportpszichológiai tanácsadás',
           parenting: 'Szülő konzultáció & tanácsadás',
         },
+        or: 'Vagy',
+        chooseCategory: 'Válassz kategóriát, hogy ez a lehetőség elérhető legyen',
+        chooseDate: 'Foglalj időpontot a valós idejű naptárban',
       },
     },
     testimonials: {
@@ -417,6 +420,9 @@ export const translations = {
           sports: 'Sport Psychology Consultation',
           parenting: 'Parent Consultation & Guidance',
         },
+        or: 'Or',
+        chooseCategory: 'Choose a category for this option to be available',
+        chooseDate: 'Select a date and time in the real time calendar',
       },
     },
     testimonials: {
