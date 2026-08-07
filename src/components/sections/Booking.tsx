@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from '../../hooks/useTranslation';
 import { BookingForm } from '../ui/BookingForm';
-import { ProtectedContactLink } from '../ui/ProtectedContactLink';
+//import { ProtectedContactLink } from '../ui/ProtectedContactLink';
 import { Section, SectionHeader } from '../ui/Section';
 
 const stepIcons = [
