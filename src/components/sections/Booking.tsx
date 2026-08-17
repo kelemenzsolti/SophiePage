@@ -1,134 +1,90 @@
-import { motion } from 'framer-motion';
-import { useTranslation } from '../../hooks/useTranslation';
+import { useTranslation } from '../../i18n/useTranslation';
 import { BookingForm } from '../ui/BookingForm';
-//import { ProtectedContactLink } from '../ui/ProtectedContactLink';
-import { Section, SectionHeader } from '../ui/Section';
+import { Icon, type IconName } from '../ui/Icon';
+import { ProtectedContactLink } from '../ui/ProtectedContactLink';
+import { Reveal } from '../ui/Reveal';
+import { Section, SectionHeading } from '../ui/Section';
 
-const stepIcons = [
-  (
-    <svg
-      key="message"
-      className="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8.625 9.75a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m3.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H19.5m-1.5 8.25H6.75A2.25 2.25 0 014.5 15.75v-7.5A2.25 2.25 0 016.75 6h10.5a2.25 2.25 0 012.25 2.25v7.5A2.25 2.25 0 0117.25 18H18z"
-      />
-    </svg>
-  ),
-  (
-    <svg
-      key="calendar"
-      className="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M6.75 3v2.25M17.25 3v2.25M3.75 8.25h16.5M4.5 6.75h15A2.25 2.25 0 0121.75 9v9.75A2.25 2.25 0 0119.5 21h-15a2.25 2.25 0 01-2.25-2.25V9A2.25 2.25 0 014.5 6.75z"
-      />
-    </svg>
-  ),
-  (
-    <svg
-      key="session"
-      className="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={1.5}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M9 12.75l2.25 2.25L15 9.75m6 2.25a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    </svg>
-  ),
-];
+const STEP_ICONS: IconName[] = ['message', 'calendar', 'spark'];
 
 export function Booking() {
   const { t } = useTranslation();
 
   return (
-    <Section id="booking" className="bg-gradient-to-b from-cream to-forest/5">
-      <SectionHeader
+    <Section id="booking" tone="shell">
+      <SectionHeading
+        eyebrow={t.booking.card.eyebrow}
         title={t.booking.title}
         subtitle={t.booking.subtitle}
       />
 
-      <div className="grid gap-8 lg:grid-cols-[1.25fr_0.95fr]">
-        <div className="grid gap-5">
-          {t.booking.steps.map((step, index) => (
-            <motion.article
-              key={step.title}
-              className="card-feature"
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-terracotta/10 text-terracotta">
-                  {stepIcons[index]}
-                </div>
-                <div>
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-semibold uppercase tracking-[0.2em] text-forest">
-                      {step.label}
-                    </span>
-                  </div>
-                  <h3 className="mt-2 font-serif text-2xl font-medium text-dark-slate">
+      <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-14">
+        {/* ---- How it works ---- */}
+        <div className="lg:col-span-5">
+          <ol className="relative space-y-9">
+            {/* The rail is drawn behind the markers to tie the steps together. */}
+            <span
+              aria-hidden="true"
+              className="absolute bottom-6 left-[1.4375rem] top-6 w-px bg-gradient-to-b from-terracotta/40 via-ink/10 to-transparent"
+            />
+
+            {t.booking.steps.map((step, index) => (
+              <Reveal
+                key={step.title}
+                delay={index * 0.1}
+                as="li"
+                className="relative flex gap-5"
+              >
+                <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-terracotta/25 bg-paper text-terracotta-deep shadow-soft">
+                  <Icon name={STEP_ICONS[index] ?? 'spark'} className="h-5 w-5" />
+                </span>
+
+                <div className="pt-1">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-terracotta-deep">
+                    {step.label}
+                  </p>
+                  <h3 className="mt-2.5 font-display text-display-sm font-medium text-forest-deep">
                     {step.title}
                   </h3>
-                  <p className="mt-3 leading-relaxed text-dark-slate/70">
+                  <p className="mt-3 leading-relaxed text-pretty text-ink/65">
                     {step.description}
                   </p>
                 </div>
-              </div>
-            </motion.article>
-          ))}
+              </Reveal>
+            ))}
+          </ol>
+
+          <Reveal delay={0.3} className="mt-10">
+            <div className="surface p-6">
+              <ProtectedContactLink
+                type="phone"
+                label={t.booking.card.phoneLabel}
+                actionLabel={t.booking.card.phoneAction}
+              />
+            </div>
+          </Reveal>
         </div>
 
-        <motion.aside
-          className="card-panel p-8 md:p-10"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        {/* ---- Enquiry form ---- */}
+        <Reveal
+          delay={0.12}
+          direction="left"
+          as="aside"
+          className="lg:col-span-7"
         >
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-terracotta">
-            {t.booking.card.eyebrow}
-          </p>
-          <h3 className="mt-4 font-serif text-3xl font-medium text-dark-slate">
-            {t.booking.card.title}
-          </h3>
-          <p className="mt-4 leading-relaxed text-dark-slate/70">
-            {t.booking.card.description}
-          </p>
+          <div id="booking-form" className="surface-panel p-7 md:p-10">
+            <h3 className="font-display text-display-md font-medium text-balance text-forest-deep">
+              {t.booking.card.title}
+            </h3>
+            <p className="mt-4 leading-relaxed text-pretty text-ink/65">
+              {t.booking.card.description}
+            </p>
 
-          <BookingForm />
-
-          {/*<div className="mt-6 rounded-2xl border border-subtle bg-cream/70 p-4 text-sm text-dark-slate/75">
-            <ProtectedContactLink
-              type="phone"
-              label={t.booking.card.phoneLabel}
-              actionLabel={t.booking.card.phoneAction}
-            />
-          </div>*/}
-        </motion.aside>
+            <div className="mt-9">
+              <BookingForm />
+            </div>
+          </div>
+        </Reveal>
       </div>
     </Section>
   );

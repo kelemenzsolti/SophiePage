@@ -1,5 +1,7 @@
 export type Language = 'hu' | 'en';
 
+export const LANGUAGES: readonly Language[] = ['hu', 'en'];
+
 export type TranslationKeys = (typeof translations)[Language];
 
 export const translations = {
@@ -8,6 +10,19 @@ export const translations = {
       title: 'Czárth Zsófia – Iskolapszichológus & Sportpszichológiai Tanácsadó',
       description:
         'Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban.',
+      locale: 'hu_HU',
+    },
+    ui: {
+      skipToContent: 'Ugrás a tartalomra',
+      navigation: 'Oldaltérkép',
+      openMenu: 'Menü megnyitása',
+      closeMenu: 'Menü bezárása',
+      backToTop: 'Vissza a lap tetejére',
+      previous: 'Előző',
+      next: 'Következő',
+      carouselLabel: 'Vélemények',
+      goToSlide: 'Ugrás a(z) {n}. véleményre',
+      scrollCue: 'Görgess',
     },
     nav: {
       logo: 'Czárth Zsófia',
@@ -35,19 +50,14 @@ export const translations = {
       paragraphs: [
         'Iskolapszichológusként a 6–18 éves korosztállyal, pedagógusokkal és szülőkkel dolgozom nap mint nap. Ismerem a tanulási gátak, a kortársi kapcsolatok és a serdülőkori váltások sajátosságait.',
         'Sportpszichológiai szakosodásom révén kiemelt figyelmet fordítok a mentális felkészítésre, a versenynyomás kezelésére és a teljesítményszorongás kioldására – legyen szó fiatal tehetségekről vagy felnőtt sportolókról.',
-        'Célom, hogy közvetlen, érthető és gyakorlatias eszközöket adjak a hozzám fordulók kezébe a mindennapi és a sportbeli sikerekhez.',
       ],
+      statement:
+        'Célom, hogy közvetlen, érthető és gyakorlatias eszközöket adjak a hozzám fordulók kezébe a mindennapi és a sportbeli sikerekhez.',
       highlights: [
         'Gyermek-, serdülő- és szülőkonzultáció (1–12. osztály)',
         'Sportpszichológiai felkészítés & Teljesítményszorongás',
         'Online konzultáció',
       ],
-    },
-    video: {
-      label: 'Bemutatkozó videó',
-      description:
-        'Ismerd meg a munkamódszeremet, valamint a diákokkal, szülőkkel és sportolókkal való közös munka menetét.',
-      playAria: 'Videó lejátszása',
     },
     services: {
       title: 'Miben tudok segíteni?',
@@ -84,10 +94,10 @@ export const translations = {
       perSession: '/ alkalom',
       featuredLabel: 'Leggyakoribb',
       cta: 'Időpontfoglalás',
-      note:
-        'Az első konzultáció díja a fenti árak 50%-a. Kiskorú ügyfelek esetén szülői hozzájárulás szükséges. Az árak 2026 augusztusától érvényesek; egyedi igények esetén kérj egyedi ajánlatot.',
+      note: 'Az első konzultáció díja a fenti árak 50%-a. Kiskorú ügyfelek esetén szülői hozzájárulás szükséges. Az árak 2026 augusztusától érvényesek; egyedi igények esetén kérj egyedi ajánlatot.',
       items: [
         {
+          id: 'individual',
           title: 'Egyéni tanácsadás (diák / fiatal)',
           duration: '60 perc',
           price: '13 000 Ft',
@@ -101,6 +111,7 @@ export const translations = {
           ],
         },
         {
+          id: 'sports',
           title: 'Sportpszichológiai tanácsadás',
           duration: '90 perc',
           price: '20 000 Ft',
@@ -114,6 +125,7 @@ export const translations = {
           ],
         },
         {
+          id: 'parenting',
           title: 'Szülő konzultáció & tanácsadás',
           duration: '60 perc',
           price: '10 000 Ft',
@@ -169,23 +181,23 @@ export const translations = {
         phoneLabel: 'Telefon',
         phonePlaceholder: '+36 30 123 4567',
         messageLabel: 'Üzenet',
-        messagePlaceholder: 'Röviden írd le, miben kértek támogatást (pl. tanulás, szorongás, sport)...',
+        messagePlaceholder:
+          'Röviden írd le, miben kértek támogatást (pl. tanulás, szorongás, sport)...',
         optional: 'opcionális',
         notProvided: 'Nincs megadva',
         fromName: 'Időpontfoglalás űrlap',
         submit: 'Küldés',
         sending: 'Küldés...',
         success: 'Köszönöm! Az üzenetet megkaptam, hamarosan válaszolok.',
-        error: 'Az üzenet küldése nem sikerült. Kérlek próbáld újra, vagy hívj telefonon.',
+        error:
+          'Az üzenet küldése nem sikerült. Kérlek próbáld újra, vagy hívj telefonon.',
         categoryLabel: 'Szolgáltatás kategória',
-        categoryPlaceholder: 'Válassz kategóriát...',
         categories: {
           individual: 'Egyéni tanácsadás (diák / fiatal)',
           sports: 'Sportpszichológiai tanácsadás',
           parenting: 'Szülő konzultáció & tanácsadás',
         },
         or: 'Vagy',
-        chooseCategory: 'Válassz kategóriát, hogy ez a lehetőség elérhető legyen',
         chooseDate: 'Foglalj időpontot a valós idejű naptárban',
       },
     },
@@ -236,6 +248,8 @@ export const translations = {
     language: {
       hu: 'HU',
       en: 'EN',
+      huFull: 'Magyar',
+      enFull: 'English',
       switchLabel: 'Nyelv váltása',
     },
   },
@@ -244,6 +258,19 @@ export const translations = {
       title: 'Zsófia Czárth – School Psychologist & Sport Psychology Consultant',
       description:
         'School Psychologist and Sport Psychology Consultant. Supporting children, adolescents, parents, and athletes in overcoming mental hurdles.',
+      locale: 'en_US',
+    },
+    ui: {
+      skipToContent: 'Skip to content',
+      navigation: 'Navigation',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+      backToTop: 'Back to top',
+      previous: 'Previous',
+      next: 'Next',
+      carouselLabel: 'Testimonials',
+      goToSlide: 'Go to testimonial {n}',
+      scrollCue: 'Scroll',
     },
     nav: {
       logo: 'Czárth Zsófia',
@@ -271,19 +298,14 @@ export const translations = {
       paragraphs: [
         'As a school psychologist, I work daily with students (grades 1–12), teachers, and parents. I specialize in learning obstacles, peer dynamics, and adolescent transitions.',
         'With specialized training in sport psychology, I focus on mental preparation, coping with competitive pressure, and overcoming performance anxiety for both young talents and adult athletes.',
-        'My goal is to provide accessible, practical tools for personal development, academic growth, and athletic success.',
       ],
+      statement:
+        'My goal is to provide accessible, practical tools for personal development, academic growth, and athletic success.',
       highlights: [
         'Child, teen & parent counseling (Grades 1–12)',
         'Sport psychology, mental training & performance anxiety',
         'Online sessions',
       ],
-    },
-    video: {
-      label: 'Introduction Video',
-      description:
-        'Learn about my approach and what to expect when working together as a student, parent, or athlete.',
-      playAria: 'Play video',
     },
     services: {
       title: 'Areas of Practice',
@@ -320,10 +342,10 @@ export const translations = {
       perSession: 'per session',
       featuredLabel: 'Most popular',
       cta: 'Book a Session',
-      note:
-        'The fee for the first consultation is 50% off the prices listed above. Parental consent is required for minor clients. Prices are valid from August 2026; please request a quote for custom requests.',
+      note: 'The fee for the first consultation is 50% off the prices listed above. Parental consent is required for minor clients. Prices are valid from August 2026; please request a quote for custom requests.',
       items: [
         {
+          id: 'individual',
           title: 'Individual Counseling (Student / Youth)',
           duration: '60 minutes',
           price: 'HUF 13,000',
@@ -337,6 +359,7 @@ export const translations = {
           ],
         },
         {
+          id: 'sports',
           title: 'Sport Psychology Consultation',
           duration: '90 minutes',
           price: 'HUF 20,000',
@@ -350,6 +373,7 @@ export const translations = {
           ],
         },
         {
+          id: 'parenting',
           title: 'Parent Consultation & Guidance',
           duration: '60 minutes',
           price: 'HUF 10,000',
@@ -405,7 +429,8 @@ export const translations = {
         phoneLabel: 'Phone',
         phonePlaceholder: '+36 30 123 4567',
         messageLabel: 'Message',
-        messagePlaceholder: 'Briefly describe your goals (e.g. school anxiety, sports performance, parenting)...',
+        messagePlaceholder:
+          'Briefly describe your goals (e.g. school anxiety, sports performance, parenting)...',
         optional: 'optional',
         notProvided: 'Not provided',
         fromName: 'Booking form',
@@ -414,14 +439,12 @@ export const translations = {
         success: 'Thank you! Your message has been sent. I will reply soon.',
         error: 'Your message could not be sent. Please try again or call by phone.',
         categoryLabel: 'Service Category',
-        categoryPlaceholder: 'Select a category...',
         categories: {
           individual: 'Individual Counseling (Student / Youth)',
           sports: 'Sport Psychology Consultation',
           parenting: 'Parent Consultation & Guidance',
         },
         or: 'Or',
-        chooseCategory: 'Choose a category for this option to be available',
         chooseDate: 'Select a date and time in the real time calendar',
       },
     },
@@ -472,9 +495,9 @@ export const translations = {
     language: {
       hu: 'HU',
       en: 'EN',
+      huFull: 'Magyar',
+      enFull: 'English',
       switchLabel: 'Switch language',
     },
   },
 } as const;
-
-export type TranslationKey = keyof TranslationKeys;

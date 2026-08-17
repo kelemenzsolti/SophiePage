@@ -1,42 +1,52 @@
-import { useState, useEffect, type FormEvent } from 'react';
-import { useTranslation } from '../../hooks/useTranslation';
+import { useEffect, useId, useState, type FormEvent } from 'react';
 import { getCalApi } from '@calcom/embed-react';
-
-const inputClassName =
-  'w-full rounded-xl border border-subtle bg-cream px-4 py-3 text-sm text-charcoal outline-none transition-colors placeholder:text-charcoal/40 focus:border-terracotta/40 focus:ring-2 focus:ring-terracotta/10';
+import { useBooking } from '../../context/BookingContext';
+import { CAL, SERVICE_CATEGORIES } from '../../content/site';
+import { useTranslation } from '../../i18n/useTranslation';
+import { Icon } from './Icon';
 
 type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-// Összekötjük a kategóriákat a Cal.com útvonalaikkal
-const calLinksMap: Record<string, string> = {
-  'Egyéni tanácsadás (diák / fiatal)': 'zsolt-kelemen-brcxcl/30min',
-  'Sportpszichológiai tanácsadás': 'zsolt-kelemen-brcxcl/secret',
-  'Szülői konzultáció és nevelési támogatás': 'zsolt-kelemen-brcxcl/15min',
-};
-
 export function BookingForm() {
   const { t } = useTranslation();
+  const { category, setCategory } = useBooking();
+  const fieldId = useId();
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState<string>(t.booking.form.categories.individual);
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<FormStatus>('idle');
 
-  // Cal.com inicializálása
+  // Load the Cal.com embed once and theme it to match the page.
   useEffect(() => {
-    (async function () {
-      const cal = await getCalApi();
+    let cancelled = false;
+
+    (async () => {
+      const cal = await getCalApi({ namespace: CAL.namespace });
+      if (cancelled) return;
+
       cal('ui', {
-        styles: { branding: { brandColor: '#b85d41' } },
+        styles: { branding: { brandColor: CAL.brandColor } },
         hideEventTypeDetails: false,
         layout: 'month_view',
       });
     })();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // Simple honeypot: real visitors never fill a hidden field. Bots get the
+    // success state so they have no signal to retry with.
+    if (new FormData(event.currentTarget).get('botcheck')) {
+      setStatus('success');
+      return;
+    }
 
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
     if (!accessKey) {
@@ -59,14 +69,13 @@ export function BookingForm() {
           name,
           email,
           phone: phone || t.booking.form.notProvided,
-          category: category || t.booking.form.notProvided,
+          category: t.booking.form.categories[category],
           message,
           from_name: t.booking.form.fromName,
         }),
       });
 
       const result = (await response.json()) as { success?: boolean };
-
       if (!response.ok || !result.success) {
         throw new Error('Form submission failed');
       }
@@ -74,7 +83,6 @@ export function BookingForm() {
       setName('');
       setEmail('');
       setPhone('');
-      setCategory(t.booking.form.categories.individual);
       setMessage('');
       setStatus('success');
     } catch {
@@ -82,137 +90,154 @@ export function BookingForm() {
     }
   };
 
-  // Kiválasztott kategóriához tartozó Cal.com link meghatározása
-  const currentCalLink = calLinksMap[category] || 'zsolt-kelemen-brcxcl/30min';
+  const pending = status === 'submitting';
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-5">
+      {/* Honeypot — hidden from people, tempting to bots. */}
+      <input
+        type="checkbox"
+        name="botcheck"
+        tabIndex={-1}
+        autoComplete="off"
+        className="sr-only"
+        aria-hidden="true"
+      />
+
       <div>
-        <label htmlFor="booking-name" className="mb-1.5 block text-sm font-medium text-charcoal">
+        <label htmlFor={`${fieldId}-name`} className="field-label">
           {t.booking.form.nameLabel}
         </label>
         <input
-          id="booking-name"
+          id={`${fieldId}-name`}
           type="text"
           required
           autoComplete="name"
           value={name}
           onChange={(event) => setName(event.target.value)}
           placeholder={t.booking.form.namePlaceholder}
-          className={inputClassName}
-          disabled={status === 'submitting'}
+          className="field"
+          disabled={pending}
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="booking-email" className="mb-1.5 block text-sm font-medium text-charcoal">
+          <label htmlFor={`${fieldId}-email`} className="field-label">
             {t.booking.form.emailLabel}
           </label>
           <input
-            id="booking-email"
+            id={`${fieldId}-email`}
             type="email"
             required
             autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder={t.booking.form.emailPlaceholder}
-            className={inputClassName}
-            disabled={status === 'submitting'}
+            className="field"
+            disabled={pending}
           />
         </div>
+
         <div>
-          <label htmlFor="booking-phone" className="mb-1.5 block text-sm font-medium text-charcoal">
+          <label htmlFor={`${fieldId}-phone`} className="field-label">
             {t.booking.form.phoneLabel}
-            <span className="ml-1 font-normal text-charcoal/50">
+            <span className="ml-1.5 font-normal normal-case tracking-normal text-ink/50">
               ({t.booking.form.optional})
             </span>
           </label>
           <input
-            id="booking-phone"
+            id={`${fieldId}-phone`}
             type="tel"
             autoComplete="tel"
             value={phone}
             onChange={(event) => setPhone(event.target.value)}
             placeholder={t.booking.form.phonePlaceholder}
-            className={inputClassName}
-            disabled={status === 'submitting'}
+            className="field"
+            disabled={pending}
           />
         </div>
       </div>
 
       <div>
-        <label htmlFor="booking-category" className="mb-1.5 block text-sm font-medium text-charcoal">
+        <label htmlFor={`${fieldId}-category`} className="field-label">
           {t.booking.form.categoryLabel}
         </label>
         <select
-          id="booking-category"
+          id={`${fieldId}-category`}
           required
           value={category}
-          onChange={(event) => setCategory(event.target.value)}
-          className={inputClassName}
-          disabled={status === 'submitting'}
+          onChange={(event) =>
+            setCategory(event.target.value as (typeof SERVICE_CATEGORIES)[number])
+          }
+          className="field-select"
+          disabled={pending}
         >
-          <option value="" disabled>
-            {t.booking.form.categoryPlaceholder}
-          </option>
-          <option value={t.booking.form.categories.individual}>
-            {t.booking.form.categories.individual}
-          </option>
-          <option value={t.booking.form.categories.sports}>
-            {t.booking.form.categories.sports}
-          </option>
-          <option value={t.booking.form.categories.parenting}>
-            {t.booking.form.categories.parenting}
-          </option>
+          {SERVICE_CATEGORIES.map((key) => (
+            <option key={key} value={key}>
+              {t.booking.form.categories[key]}
+            </option>
+          ))}
         </select>
       </div>
 
       <div>
-        <label htmlFor="booking-message" className="mb-1.5 block text-sm font-medium text-charcoal">
+        <label htmlFor={`${fieldId}-message`} className="field-label">
           {t.booking.form.messageLabel}
         </label>
         <textarea
-          id="booking-message"
+          id={`${fieldId}-message`}
           required
-          rows={3}
+          rows={4}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           placeholder={t.booking.form.messagePlaceholder}
-          className={`${inputClassName} min-h-[100px] resize-y`}
-          disabled={status === 'submitting'}
+          className="field min-h-[7rem] resize-y"
+          disabled={pending}
         />
       </div>
 
-      {status === 'success' && (
-        <p className="rounded-xl border border-olive/20 bg-olive/10 px-4 py-3 text-sm text-charcoal">
-          {t.booking.form.success}
-        </p>
-      )}
-
-      {status === 'error' && (
-        <p className="rounded-xl border border-terracotta/20 bg-terracotta/10 px-4 py-3 text-sm text-charcoal">
-          {t.booking.form.error}
-        </p>
-      )}
+      {/* Announced to screen readers as soon as the request resolves. */}
+      <div aria-live="polite" role="status">
+        {status === 'success' && (
+          <p className="flex items-start gap-2.5 rounded-xl border border-forest/20 bg-forest/[0.06] px-4 py-3 text-sm text-forest-deep">
+            <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0" />
+            {t.booking.form.success}
+          </p>
+        )}
+        {status === 'error' && (
+          <p className="rounded-xl border border-terracotta/30 bg-terracotta/[0.08] px-4 py-3 text-sm text-terracotta-deep">
+            {t.booking.form.error}
+          </p>
+        )}
+      </div>
 
       <button
         type="submit"
-        disabled={status === 'submitting'}
-        className="btn-primary w-full px-6 py-3.5 text-center disabled:cursor-not-allowed disabled:opacity-70"
+        disabled={pending}
+        className="btn-accent btn-lg w-full"
       >
-        {status === 'submitting' ? t.booking.form.sending : t.booking.form.submit}
+        {pending ? t.booking.form.sending : t.booking.form.submit}
       </button>
 
-      <div className="font-serif text-center text-lg">{t.booking.form.or}</div>
+      <div className="flex items-center gap-4 py-1">
+        <span className="h-px flex-1 bg-ink/10" />
+        <span className="font-display text-sm italic text-ink/65">
+          {t.booking.form.or}
+        </span>
+        <span className="h-px flex-1 bg-ink/10" />
+      </div>
 
-      {/* Dinamikusan a kiválasztott kategória naptárát nyitja meg */}
+      {/* Opens the Cal.com calendar for whichever service is selected above. */}
       <button
         type="button"
-        data-cal-link={currentCalLink}
-        className="mt-2 w-full rounded-xl border border-terracotta/30 bg-white py-3 text-center text-sm font-medium text-terracotta transition-colors hover:bg-terracotta/5"
+        data-cal-namespace={CAL.namespace}
+        data-cal-link={CAL.links[category]}
+        data-cal-config={`{"layout":"month_view"}`}
+        className="btn-outline btn-lg w-full gap-2.5"
       >
-        {category ? t.booking.form.chooseDate : t.booking.form.chooseCategory}
+        <Icon name="calendar" className="h-4 w-4" />
+        {t.booking.form.chooseDate}
       </button>
     </form>
   );

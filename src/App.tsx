@@ -1,28 +1,39 @@
+import { BookingProvider } from './context/BookingContext';
+import { useTranslation } from './i18n/useTranslation';
+import { Footer } from './components/layout/Footer';
 import { Navbar } from './components/layout/Navbar';
+import { About } from './components/sections/About';
 import { Booking } from './components/sections/Booking';
-import { Pricing } from './components/sections/Pricing';
-import { Footer } from './components/sections/Footer';
 import { Hero } from './components/sections/Hero';
-import { Profile } from './components/sections/Profile';
+import { Pricing } from './components/sections/Pricing';
 import { Services } from './components/sections/Services';
 import { Testimonials } from './components/sections/Testimonials';
-// import { VideoSection } from './components/sections/VideoSection';
 
 function App() {
+  const { t } = useTranslation();
+
   return (
-    <>
+    <BookingProvider>
+      <a
+        href="#main"
+        className="btn-primary btn-md sr-only focus:not-sr-only focus:fixed focus:left-6 focus:top-6 focus:z-[60]"
+      >
+        {t.ui.skipToContent}
+      </a>
+
       <Navbar />
-      <main>
+
+      <main id="main">
         <Hero />
-        <Profile />
-        {/*<VideoSection />*/}
+        <About />
         <Services />
         <Pricing />
         <Booking />
         <Testimonials />
       </main>
+
       <Footer />
-    </>
+    </BookingProvider>
   );
 }
 

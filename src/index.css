@@ -2,85 +2,194 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ------------------------------------------------------------------
+   Design tokens
+   Colour values are stored as raw RGB channels so Tailwind's
+   `<alpha-value>` opacity modifiers (e.g. `text-ink/70`) keep working.
+   ------------------------------------------------------------------ */
 @layer base {
   :root {
-    /* Colors (RGB channels for Tailwind opacity modifiers) */
-    --color-forest: 43 76 63;      /* #2b4c3f - Deep Forest Green */
-    --color-terracotta: 188 90 58;  /* #bc5a3a - Terracotta Warmth */
-    --color-ochre: 212 163 115;    /* #d4a373 - Soft Ochre Accent */
-    --color-cream: 250 247 242;    /* #faf7f2 - Warm Cream */
-    --color-slate: 28 40 38;       /* #1c2826 - Deep Slate Text */
+    /* Grounds */
+    --c-paper: 251 248 243; /* #fbf8f3 — page ground */
+    --c-shell: 246 240 232; /* #f6f0e8 — raised surfaces */
+    --c-sand: 238 229 216; /* #eee5d8 — alternating bands */
 
-    /* Shadows */
-    --shadow-soft: 0 4px 24px rgb(var(--color-slate) / 0.06);
-    --shadow-card: 0 8px 32px rgb(var(--color-slate) / 0.08);
+    /* Ink */
+    --c-ink: 27 36 31; /* #1b241f — warm near-black */
+
+    /* Forest */
+    --c-forest: 35 64 52; /* #234034 */
+    --c-forest-deep: 20 38 30; /* #14261e */
+    --c-forest-soft: 90 122 105; /* #5a7a69 */
+
+    /* Terracotta — primary accent. `deep` is the AA-safe text tint on paper. */
+    --c-terracotta: 184 92 60; /* #b85c3c */
+    --c-terracotta-deep: 158 71 43; /* #9e472b */
+    --c-terracotta-soft: 224 175 152; /* #e0af98 */
+
+    /* Ochre — decorative only, never used for text on light grounds. */
+    --c-ochre: 212 163 115; /* #d4a373 */
+
+    /* Elevation. Warm-tinted so shadows never read as grey. */
+    --shadow-soft: 0 1px 2px rgb(var(--c-forest) / 0.04),
+      0 6px 20px -8px rgb(var(--c-forest) / 0.1);
+    --shadow-card: 0 1px 2px rgb(var(--c-forest) / 0.05),
+      0 12px 32px -12px rgb(var(--c-forest) / 0.16);
+    --shadow-lift: 0 2px 4px rgb(var(--c-forest) / 0.05),
+      0 28px 60px -24px rgb(var(--c-forest) / 0.26);
 
     /* Radii */
-    --radius-card: 1rem;
-    --radius-card-lg: 1.75rem;
-    --radius-pill: 9999px;
+    --radius-card: 1.25rem;
+    --radius-panel: 1.75rem;
+    --radius-arch: 14rem 14rem 1.75rem 1.75rem; /* tall portrait frames */
 
-    /* Borders */
-    --border-subtle: rgb(var(--color-forest) / 0.08);
-    --border-default: rgb(var(--color-forest) / 0.15);
+    /* Paper texture — inline SVG so the page stays self-contained. */
+    --texture-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
 
-    /* Gradients */
-    --gradient-terracotta-glow: radial-gradient(
-      circle at 30% 40%,
-      rgb(var(--color-terracotta) / 0.18),
-      transparent 55%
-    );
-    --gradient-forest-glow: radial-gradient(
-      circle at 70% 60%,
-      rgb(var(--color-forest) / 0.12),
-      transparent 50%
-    );
+    /* Layout */
+    --nav-height: 4.5rem;
+  }
+
+  * {
+    /* Anchor jumps and scroll-spy both need to clear the fixed header. */
+    scroll-margin-top: calc(var(--nav-height) + 1.5rem);
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* Fraunces is a variable font with an optical-size axis; letting the
+       browser drive it keeps display sizes from looking overly contrasted. */
+    font-optical-sizing: auto;
   }
 
   body {
-    @apply bg-cream font-sans text-dark-slate antialiased;
+    @apply bg-paper font-sans text-ink antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
   ::selection {
-    @apply bg-terracotta/20 text-dark-slate;
+    @apply bg-terracotta/25 text-ink;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-terracotta ring-offset-2 ring-offset-paper;
+    border-radius: 0.5rem;
+  }
+
+  /* Respect the OS-level motion preference everywhere, including for the
+     Framer Motion transforms that don't route through `Reveal`. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
 @layer components {
-  .card {
-    @apply rounded-card border border-subtle bg-white/80 backdrop-blur-sm;
+  /* ---- Typography helpers ---- */
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 font-sans text-eyebrow font-semibold uppercase text-terracotta-deep;
   }
 
-  .card-elevated {
-    @apply card shadow-card;
+  .eyebrow::before {
+    content: '';
+    @apply h-px w-6 bg-terracotta/50;
   }
 
-  .card-interactive {
-    @apply card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-card;
+  .eyebrow-plain::before {
+    content: none;
   }
 
-  .card-feature {
-    @apply card-interactive p-8;
+  .prose-warm {
+    @apply space-y-5 text-lead text-ink/70;
   }
 
-  .card-panel {
-    @apply overflow-hidden rounded-card-lg border border-subtle bg-white/90 shadow-card backdrop-blur-sm;
+  /* ---- Surfaces ---- */
+
+  .surface {
+    @apply rounded-card border border-ink/[0.07] bg-shell/70;
+  }
+
+  .surface-raised {
+    @apply rounded-card border border-ink/[0.07] bg-paper shadow-soft;
+  }
+
+  .surface-panel {
+    @apply rounded-panel border border-ink/[0.07] bg-paper shadow-card;
+  }
+
+  /* Cards that respond to pointer. The border warms rather than the fill,
+     which keeps the page calm on hover-heavy grids. */
+  .surface-interactive {
+    @apply surface-raised transition-[transform,box-shadow,border-color] duration-500 ease-editorial hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-lift;
+  }
+
+  .hairline {
+    @apply border-ink/[0.09];
+  }
+
+  /* ---- Buttons ---- */
+
+  .btn {
+    @apply inline-flex select-none items-center justify-center gap-2 rounded-full text-sm font-medium leading-none transition-all duration-300 ease-editorial disabled:pointer-events-none disabled:opacity-60;
+  }
+
+  .btn-lg {
+    @apply px-7 py-4;
+  }
+
+  .btn-md {
+    @apply px-5 py-3;
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-terracotta text-sm font-medium text-cream shadow-soft transition-all duration-300 hover:bg-terracotta/90 hover:shadow-card active:scale-[0.98];
+    @apply btn bg-forest text-paper shadow-soft hover:bg-forest-deep hover:shadow-card active:scale-[0.985];
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-forest/20 bg-transparent text-sm font-medium text-forest transition-all duration-300 hover:border-forest hover:bg-forest/5;
+  .btn-accent {
+    @apply btn bg-terracotta text-paper shadow-soft hover:bg-terracotta-deep hover:shadow-card active:scale-[0.985];
   }
 
-  .dropdown-menu {
-    @apply absolute right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-subtle bg-cream shadow-card;
+  .btn-outline {
+    @apply btn border border-ink/15 bg-transparent text-ink hover:border-ink/40 hover:bg-ink/[0.04];
+  }
+
+  .btn-ghost-light {
+    @apply btn border border-paper/30 bg-paper/10 text-paper backdrop-blur-sm hover:border-paper/60 hover:bg-paper/20;
+  }
+
+  /* ---- Form controls ---- */
+
+  .field {
+    @apply w-full rounded-xl border border-ink/[0.12] bg-shell/60 px-4 py-3 text-sm text-ink transition-colors duration-200 placeholder:text-ink/50 hover:border-ink/25 focus:border-terracotta focus:bg-paper focus:outline-none focus:ring-4 focus:ring-terracotta/[0.12] disabled:opacity-60;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-ink/65;
+  }
+
+  /* Native select arrows are inconsistent across platforms; draw our own. */
+  .field-select {
+    @apply field cursor-pointer appearance-none bg-no-repeat pr-11;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%231b241f' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 6l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right 1rem center;
+    background-size: 1rem;
+  }
+
+  /* ---- Overlays ---- */
+
+  .menu-surface {
+    @apply overflow-hidden rounded-2xl border border-ink/10 bg-paper p-1.5 shadow-lift;
   }
 }
 
@@ -89,11 +198,17 @@
     text-wrap: balance;
   }
 
-  .bg-gradient-terracotta-glow {
-    background-image: var(--gradient-terracotta-glow);
+  .text-pretty {
+    text-wrap: pretty;
   }
 
-  .bg-gradient-forest-glow {
-    background-image: var(--gradient-forest-glow);
+  /* A faint film of noise over flat grounds so large cream areas don't band. */
+  .grain::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0 bg-grain opacity-[0.035] mix-blend-multiply;
+  }
+
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6 sm:px-8 lg:px-12;
   }
 }

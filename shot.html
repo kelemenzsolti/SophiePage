@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; background: #fbf8f3; overflow: hidden; }
+      #clip { overflow: hidden; }
+      iframe { border: 0; display: block; }
+    </style>
+  </head>
+  <body>
+    <div id="clip"><iframe id="f" src="/"></iframe></div>
+    <script>
+      // Renders the app in a full-height iframe and slides it up with a
+      // negative margin, so a normal viewport-sized screenshot captures any
+      // slice of the page without depending on scroll timing.
+      const p = new URLSearchParams(location.search);
+      const w = Number(p.get('w') || 1440);
+      const y = Number(p.get('y') || 0);
+      const full = Number(p.get('full') || 8000);
+      const f = document.getElementById('f');
+      f.width = w;
+      f.height = full;
+      f.style.marginTop = -y + 'px';
+    </script>
+  </body>
+</html>

@@ -1,60 +1,107 @@
-import { motion } from 'framer-motion';
+import type { ReactNode } from 'react';
+import { cn } from '../../lib/cn';
+import { Reveal } from './Reveal';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] },
-  }),
+type Tone = 'paper' | 'shell' | 'sand' | 'forest';
+
+const TONE_CLASS: Record<Tone, string> = {
+  paper: 'bg-paper text-ink',
+  shell: 'bg-shell text-ink',
+  sand: 'bg-sand text-ink',
+  forest: 'bg-forest-deep text-paper',
 };
 
 interface SectionProps {
   id?: string;
+  children: ReactNode;
+  tone?: Tone;
   className?: string;
-  children: React.ReactNode;
+  /** Removes the horizontal container for full-bleed layouts. */
+  bleed?: boolean;
+  /** Tightens the vertical rhythm for shorter, supporting sections. */
+  compact?: boolean;
 }
 
-export function Section({ id, className = '', children }: SectionProps) {
+export function Section({
+  id,
+  children,
+  tone = 'paper',
+  className,
+  bleed = false,
+  compact = false,
+}: SectionProps) {
   return (
-    <section id={id} className={`py-10 md:py-14 ${className}`}>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">{children}</div>
+    <section
+      id={id}
+      className={cn(
+        'relative grain',
+        TONE_CLASS[tone],
+        compact ? 'py-16 md:py-20' : 'py-20 md:py-28 lg:py-32',
+        className,
+      )}
+    >
+      {bleed ? children : <div className="shell relative">{children}</div>}
     </section>
   );
 }
 
-interface SectionHeaderProps {
+interface SectionHeadingProps {
+  eyebrow?: string;
   title: string;
   subtitle?: string;
   align?: 'left' | 'center';
+  /** Inverts the palette for use on the dark forest ground. */
+  inverted?: boolean;
+  className?: string;
 }
 
-export function SectionHeader({
+export function SectionHeading({
+  eyebrow,
   title,
   subtitle,
   align = 'center',
-}: SectionHeaderProps) {
-  const alignment =
-    align === 'center' ? 'mx-auto text-center max-w-3xl' : 'max-w-2xl';
-
+  inverted = false,
+  className,
+}: SectionHeadingProps) {
   return (
-    <motion.div
-      className={`mb-14 md:mb-16 ${alignment}`}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
-      variants={fadeUp}
+    <Reveal
+      className={cn(
+        align === 'center' ? 'mx-auto max-w-3xl text-center' : 'max-w-2xl',
+        className,
+      )}
     >
-      <h2 className="font-serif text-3xl font-medium tracking-tight text-charcoal md:text-4xl lg:text-5xl">
+      {eyebrow && (
+        <p
+          className={cn(
+            'eyebrow mb-5',
+            align === 'center' && 'justify-center',
+            inverted && 'text-terracotta-soft before:bg-terracotta-soft/50',
+          )}
+        >
+          {eyebrow}
+        </p>
+      )}
+
+      <h2
+        className={cn(
+          'font-display text-display-md font-medium text-balance',
+          inverted ? 'text-paper' : 'text-forest-deep',
+        )}
+      >
         {title}
       </h2>
+
       {subtitle && (
-        <p className="mt-4 text-base leading-relaxed text-charcoal/70 md:text-lg">
+        <p
+          className={cn(
+            'mt-5 text-lead text-pretty',
+            align === 'center' && 'mx-auto max-w-2xl',
+            inverted ? 'text-paper/70' : 'text-ink/65',
+          )}
+        >
           {subtitle}
         </p>
       )}
-    </motion.div>
+    </Reveal>
   );
 }
-
-export { fadeUp, motion };
