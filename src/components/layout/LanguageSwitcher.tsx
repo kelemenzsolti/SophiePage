@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '../../lib/cn';
 import { LANGUAGES } from '../../i18n/translations';
@@ -15,6 +16,9 @@ interface LanguageSwitcherProps {
  */
 export function LanguageSwitcher({ className, inverted = false }: LanguageSwitcherProps) {
   const { language, setLanguage, t } = useTranslation();
+  // The page mounts this control more than once (navbar, mobile panel, footer).
+  // A per-instance layout id keeps each sliding pill inside its own switcher.
+  const pillId = useId();
 
   return (
     <div
@@ -49,7 +53,7 @@ export function LanguageSwitcher({ className, inverted = false }: LanguageSwitch
           >
             {active && (
               <motion.span
-                layoutId={inverted ? 'lang-pill-inverted' : 'lang-pill'}
+                layoutId={pillId}
                 transition={{ type: 'spring', stiffness: 420, damping: 34 }}
                 className={cn(
                   'absolute inset-0 rounded-full',

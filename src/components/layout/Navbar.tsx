@@ -48,6 +48,10 @@ export function Navbar() {
     return () => query.removeEventListener('change', onChange);
   }, []);
 
+  // At the top of the page the bar floats over the dark hero photograph, so it
+  // flips to a light palette until the visitor scrolls onto the paper ground.
+  const overDark = !scrolled && !open;
+
   return (
     <motion.header
       initial={{ y: -24, opacity: 0 }}
@@ -55,9 +59,9 @@ export function Navbar() {
       transition={{ duration: 0.7, ease: EASE_EDITORIAL, delay: 0.1 }}
       className={cn(
         'fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,box-shadow] duration-500',
-        scrolled || open
-          ? 'border-b border-ink/[0.07] bg-paper/85 shadow-soft backdrop-blur-xl'
-          : 'border-b border-transparent bg-transparent',
+        overDark
+          ? 'border-b border-transparent bg-gradient-to-b from-forest-deep/55 via-forest-deep/20 to-transparent'
+          : 'border-b border-ink/[0.07] bg-paper/85 shadow-soft backdrop-blur-xl',
       )}
     >
       <nav
@@ -66,7 +70,12 @@ export function Navbar() {
       >
         <a
           href="#top"
-          className="font-display text-xl font-medium tracking-tight text-forest-deep transition-colors hover:text-terracotta-deep md:text-[1.375rem]"
+          className={cn(
+            'font-display text-xl font-medium tracking-tight transition-colors md:text-[1.375rem]',
+            overDark
+              ? 'text-paper hover:text-terracotta-soft'
+              : 'text-forest-deep hover:text-terracotta-deep',
+          )}
         >
           {t.nav.logo}
         </a>
@@ -82,7 +91,13 @@ export function Navbar() {
                   aria-current={isActive ? 'true' : undefined}
                   className={cn(
                     'relative block rounded-full px-3.5 py-2 text-sm font-medium transition-colors duration-300',
-                    isActive ? 'text-forest-deep' : 'text-ink/70 hover:text-ink',
+                    overDark
+                      ? isActive
+                        ? 'text-paper'
+                        : 'text-paper/75 hover:text-paper'
+                      : isActive
+                        ? 'text-forest-deep'
+                        : 'text-ink/70 hover:text-ink',
                   )}
                 >
                   {t.nav[key]}
@@ -90,7 +105,10 @@ export function Navbar() {
                     <motion.span
                       layoutId="nav-underline"
                       transition={{ type: 'spring', stiffness: 380, damping: 32 }}
-                      className="absolute inset-x-3.5 -bottom-0.5 h-px bg-terracotta"
+                      className={cn(
+                        'absolute inset-x-3.5 -bottom-0.5 h-px',
+                        overDark ? 'bg-terracotta-soft' : 'bg-terracotta',
+                      )}
                     />
                   )}
                 </a>
@@ -100,9 +118,15 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
-          <LanguageSwitcher className="hidden sm:inline-flex" />
+          <LanguageSwitcher className="hidden sm:inline-flex" inverted={overDark} />
 
-          <a href="#booking" className="btn-primary btn-md hidden lg:inline-flex">
+          <a
+            href="#booking"
+            className={cn(
+              'btn-md hidden lg:inline-flex',
+              overDark ? 'btn-accent' : 'btn-primary',
+            )}
+          >
             {t.nav.bookSession}
           </a>
 
@@ -113,7 +137,12 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? t.ui.closeMenu : t.ui.openMenu}
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/10 bg-shell/70 text-forest-deep transition-colors hover:border-ink/25 lg:hidden"
+            className={cn(
+              'inline-flex h-11 w-11 items-center justify-center rounded-full border transition-colors lg:hidden',
+              overDark
+                ? 'border-paper/30 bg-paper/10 text-paper backdrop-blur-sm hover:border-paper/60'
+                : 'border-ink/10 bg-shell/70 text-forest-deep hover:border-ink/25',
+            )}
           >
             <Icon name={open ? 'close' : 'menu'} className="h-5 w-5" />
           </button>

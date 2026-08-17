@@ -58,6 +58,13 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* Safety net against a stray horizontal scrollbar. `clip` rather than
+       `hidden` so it never turns the root into a scroll container, which would
+       break `position: sticky` further down the tree. Sections that bleed
+       decoration past their edges must still clip it themselves — an
+       overflowing section widens the block the fixed header is measured
+       against and pushes the mobile menu button off screen. */
+    overflow-x: clip;
     /* Fraunces is a variable font with an optical-size axis; letting the
        browser drive it keeps display sizes from looking overly contrasted. */
     font-optical-sizing: auto;
