@@ -57,19 +57,58 @@ marked `TODO(launch)`:
 - `CONTACT` — the phone number and email address are development stand-ins
 - `CAL.links` — the Cal.com event types point at the developer's account
 
+### Changing the phone number or email
+
+The details are stored obfuscated, so they cannot be edited by hand. Regenerate
+the payloads and paste them into `CONTACT`:
+
+```bash
+node scripts/encode-contact.mjs "+36 30 123 4567" "hello@example.com"
+```
+
+The script also prints the masked form shown before a visitor reveals the value.
+Keep `CONTACT.key` in sync with the key the payloads were generated with
+(override it with `CONTACT_KEY=...` if you want a different one).
+
+## Contact protection
+
+Phone numbers and email addresses published in plain HTML get harvested. This
+site keeps them out of reach of the scrapers that actually do that work:
+
+- No literal address or number appears in the served HTML, the JavaScript bundle,
+  or the DOM. Values are XOR-obfuscated at rest (`src/lib/contact.ts`).
+- Decoding happens inside the click handler, never during render — so a crawler
+  that renders the page and reads the DOM still sees only `+36 30 ••• ••••`.
+- The handler ignores untrusted events, so a script calling `.click()` on the
+  reveal button gets nothing. Real clicks — including keyboard activation and
+  assistive tech — are trusted and work normally.
+- Revealed links carry `rel="nofollow"`.
+
+**What this is not.** It is not encryption. The key ships with the page, so
+anyone willing to read `src/lib/contact.ts` can recover the address; the point is
+to raise the cost above what bulk harvesting is willing to pay. The only way to
+keep an address genuinely private is to never send it to the browser — which is
+what the booking form already does, by posting to Web3Forms rather than exposing
+an inbox. If spam ever becomes a real problem, remove `CONTACT` entirely and let
+the form be the only channel.
+
 ## Project structure
 
 ```
+scripts/
+└── encode-contact.mjs   regenerates the obfuscated contact payloads
+
 src/
 ├── components/
 │   ├── layout/     Navbar, Footer, LanguageSwitcher
 │   ├── sections/   Hero, About, Services, Pricing, Booking, Testimonials
-│   └── ui/         Section, Reveal, Icon, BookingForm, ProtectedContactLink
+│   └── ui/         Section, Reveal, Icon, BookingForm, ContactReveal
 ├── content/        site.ts — nav, contact, social, Cal.com config, asset paths
 ├── context/        BookingContext — shares the selected service across sections
 ├── hooks/          useScrolled, useActiveSection, useDismiss, useLockBodyScroll
 ├── i18n/           translations.ts, LanguageContext, useTranslation
-├── lib/            cn (class join), motion (shared easing and reveal variants)
+├── lib/            cn (class join), motion (easing + reveal variants),
+│                   contact (obfuscation codec)
 └── index.css       design tokens + component layer
 ```
 

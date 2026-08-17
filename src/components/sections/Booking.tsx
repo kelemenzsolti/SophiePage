@@ -1,7 +1,7 @@
 import { useTranslation } from '../../i18n/useTranslation';
 import { BookingForm } from '../ui/BookingForm';
 import { Icon, type IconName } from '../ui/Icon';
-import { ProtectedContactLink } from '../ui/ProtectedContactLink';
+import { ContactReveal, ContactRevealNote } from '../ui/ContactReveal';
 import { Reveal } from '../ui/Reveal';
 import { Section, SectionHeading } from '../ui/Section';
 
@@ -56,11 +56,11 @@ export function Booking() {
 
           <Reveal delay={0.3} className="mt-10">
             <div className="surface p-6">
-              <ProtectedContactLink
-                type="phone"
-                label={t.booking.card.phoneLabel}
-                actionLabel={t.booking.card.phoneAction}
-              />
+              <div className="grid gap-6 sm:grid-cols-2">
+                <ContactReveal channel="phone" />
+                <ContactReveal channel="email" />
+              </div>
+              <ContactRevealNote className="mt-5" />
             </div>
           </Reveal>
         </div>

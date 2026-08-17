@@ -1,7 +1,7 @@
 import { NAV_LINKS, SOCIAL_LINKS } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { BrandIcon, Icon } from '../ui/Icon';
-import { ProtectedContactLink } from '../ui/ProtectedContactLink';
+import { ContactReveal, ContactRevealNote } from '../ui/ContactReveal';
 import { Reveal } from '../ui/Reveal';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
@@ -51,12 +51,9 @@ export function Footer() {
             </h2>
 
             <div className="mt-6 space-y-6">
-              <ProtectedContactLink
-                type="phone"
-                label={t.footer.phoneLabel}
-                actionLabel={t.footer.phoneAction}
-                inverted
-              />
+              <ContactReveal channel="phone" inverted />
+              <ContactReveal channel="email" inverted />
+              <ContactRevealNote inverted />
 
               <p className="flex items-center gap-2.5 text-sm text-paper/60">
                 <Icon name="mapPin" className="h-4 w-4 text-terracotta-soft" />

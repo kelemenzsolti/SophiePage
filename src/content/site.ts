@@ -23,17 +23,35 @@ export const NAV_LINKS = [
 /** Section ids the navigation highlights while scrolling. */
 export const SECTION_IDS = ['about', 'services', 'pricing', 'booking', 'testimonials'];
 
+export type ContactChannel = 'phone' | 'email';
+
 /**
- * Contact details are stored in fragments and only assembled in the browser on
- * user interaction, which keeps them out of reach of naive address scrapers.
+ * Contact details, stored obfuscated so no literal address or number appears
+ * in the bundle, the served HTML, or the DOM. They are decoded only inside the
+ * click handler that reveals them — see `src/lib/contact.ts` for what this does
+ * and does not protect against.
+ *
+ * Regenerate the payloads after changing any value:
+ *   node scripts/encode-contact.mjs "<phone>" "<email>"
  *
  * TODO(launch): replace with Czárth Zsófia's real address and number — the
  * values below are development placeholders.
  */
 export const CONTACT = {
-  emailParts: ['zsolti.kelemen1999', 'gmail', 'com'],
-  phoneParts: ['+36', '30', '123', '4567'],
-} as const;
+  /** Must match the key the payloads were generated with. */
+  key: 'czs-contact-v1',
+  phone: {
+    /** Shown before the visitor asks to see the real value. */
+    mask: '+36 30 ••• ••••',
+    payload: 'SElFDVBfTkVTUFQZQwdU',
+  },
+  email: {
+    mask: '•••••••••@gmail.com',
+    payload: 'GQkcQRcGQB8EDxFAE19SQ0oUIwgDFQgPWk4ZXA==',
+  },
+} as const satisfies {
+  key: string;
+} & Record<ContactChannel, { mask: string; payload: string }>;
 
 export const SOCIAL_LINKS = [
   { name: 'Instagram', href: 'https://www.instagram.com/czarth.zsofia/' },
