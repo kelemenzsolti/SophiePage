@@ -51,9 +51,9 @@ export const CAL = {
   namespace: 'booking',
   brandColor: '#b85c3c',
   links: {
-    individual: 'zsolt-kelemen-brcxcl/30min',
-    sports: 'zsolt-kelemen-brcxcl/secret',
-    parenting: 'zsolt-kelemen-brcxcl/15min',
+    individual: 'zsofia-czarth-rohber/30min',
+    sports: 'zsofia-czarth-rohber/secret',
+    parenting: 'zsofia-czarth-rohber/15min',
   } satisfies Record<ServiceCategory, string>,
 } as const;
 
