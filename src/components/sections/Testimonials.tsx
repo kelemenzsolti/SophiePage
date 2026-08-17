@@ -44,6 +44,7 @@ export function Testimonials() {
     <section id="testimonials" className="relative isolate overflow-hidden py-24 md:py-32">
       {/* Forest ground. The photograph carries the section, so the scrim is
           tuned for text contrast rather than mood alone. */}
+          IDE ESETLEG SULIS VÉLEMÉNYEK ANONIM, VAGY IGAZGATÓ MEGJEGYZÉSEI
       <img
         src={asset(IMAGES.forest)}
         alt=""
