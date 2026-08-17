@@ -20,7 +20,7 @@ export function Booking() {
 
       <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-14">
         {/* ---- How it works ---- */}
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-6">
           <ol className="relative space-y-9">
             {/* The rail is drawn behind the markers to tie the steps together. */}
             <span
@@ -70,7 +70,7 @@ export function Booking() {
           delay={0.12}
           direction="left"
           as="aside"
-          className="lg:col-span-7"
+          className="lg:col-span-6"
         >
           <div id="booking-form" className="surface-panel p-7 md:p-10">
             <h3 className="font-display text-display-md font-medium text-balance text-forest-deep">
