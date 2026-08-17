@@ -7,7 +7,7 @@ import { Booking } from './components/sections/Booking';
 import { Hero } from './components/sections/Hero';
 import { Pricing } from './components/sections/Pricing';
 import { Services } from './components/sections/Services';
-import { Testimonials } from './components/sections/Testimonials';
+// import { Testimonials } from './components/sections/Testimonials';
 
 function App() {
   const { t } = useTranslation();
@@ -29,7 +29,7 @@ function App() {
         <Services />
         <Pricing />
         <Booking />
-        <Testimonials />
+        {/* <Testimonials />*/ }
       </main>
 
       <Footer />
