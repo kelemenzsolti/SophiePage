@@ -99,7 +99,7 @@ export const translations = {
     pricing: {
       title: 'Árak',
       subtitle:
-        'Átlátható díjak – minden alkalom előre egyeztetett időpontban, személyesen vagy online.',
+        'Átlátható díjak – minden alkalom előre egyeztetett időpontban online.',
       durationLabel: 'Időtartam',
       perSession: '/ alkalom',
       featuredLabel: 'Leggyakoribb',
@@ -107,38 +107,38 @@ export const translations = {
       note: 'Az első konzultáció díja a fenti árak 50%-a. Kiskorú ügyfelek esetén szülői hozzájárulás szükséges. Az árak 2026 augusztusától érvényesek; egyedi igények esetén kérj egyedi ajánlatot.',
       items: [
         {
-          id: 'individual',
-          title: 'Egyéni tanácsadás (diák / fiatal)',
-          duration: '60 perc',
-          price: '13 000 Ft',
+          id: 'sports',
+          title: 'Sportpszichológiai tanácsadás',
+          duration: '50 perc',
+          price: '15 000 Ft',
           description:
-            'Iskolai elakadások, szorongás, motiváció és kortárs kapcsolatok támogatása 1–12. osztályos korosztálynak.',
+            'Versenynyomás, teljesítményszorongás, fókusz és önbizalom fejlesztése fiatal és felnőtt sportolóknak.',
           featured: false,
           features: [
-            'Személyes vagy online ülés',
+            'Mentális felkészítés versenyekre',
+            'Gyakorlati technikák az edzésre is',
+            'Online formában',
+          ],
+        },
+        {
+          id: 'individual',
+          title: 'Egyéni tanácsadás (diák / fiatal)',
+          duration: '50 perc',
+          price: '15 000 Ft',
+          description:
+            'Iskolai elakadások, szorongás, motiváció és kortárs kapcsolatok támogatása 1–12. osztályos korosztálynak.',
+          featured: true,
+          features: [
+            'Online ülés',
             'Egyéni fejlődési terv',
             'Szülői visszajelzés igény szerint',
           ],
         },
         {
-          id: 'sports',
-          title: 'Sportpszichológiai tanácsadás',
-          duration: '90 perc',
-          price: '20 000 Ft',
-          description:
-            'Versenynyomás, teljesítményszorongás, fókusz és önbizalom fejlesztése fiatal és felnőtt sportolóknak.',
-          featured: true,
-          features: [
-            'Mentális felkészítés versenyekre',
-            'Gyakorlati technikák az edzésre is',
-            'Online vagy személyes formában',
-          ],
-        },
-        {
           id: 'parenting',
           title: 'Szülő konzultáció & tanácsadás',
-          duration: '60 perc',
-          price: '10 000 Ft',
+          duration: '50 perc',
+          price: '13 000 Ft',
           description:
             'Nevelési kérdések, családi dinamikák és a gyermek iskolai/sportbeli támogatásának egyeztetése.',
           featured: false,
@@ -350,7 +350,7 @@ export const translations = {
     pricing: {
       title: 'Pricing',
       subtitle:
-        'Transparent fees for every session — in person or online, at a scheduled time that works for you.',
+        'Transparent fees for every session — online, at a scheduled time that works for you.',
       durationLabel: 'Duration',
       perSession: 'per session',
       featuredLabel: 'Most popular',
@@ -358,38 +358,38 @@ export const translations = {
       note: 'The fee for the first consultation is 50% off the prices listed above. Parental consent is required for minor clients. Prices are valid from August 2026; please request a quote for custom requests.',
       items: [
         {
-          id: 'individual',
-          title: 'Individual Counseling (Student / Youth)',
-          duration: '60 minutes',
-          price: 'HUF 13,000',
+          id: 'sports',
+          title: 'Sport Psychology Consultation',
+          duration: '50 minutes',
+          price: 'HUF 15,000',
           description:
-            'Support for school challenges, anxiety, motivation, and peer relationships for grades 1–12.',
+            'Competition pressure, performance anxiety, focus, and confidence for young and adult athletes.',
           featured: false,
           features: [
-            'In-person or online session',
+            'Mental preparation for competitions',
+            'Practical techniques for training too',
+            'Available online',
+          ],
+        },
+        {
+          id: 'individual',
+          title: 'Individual Counseling (Student / Youth)',
+          duration: '50 minutes',
+          price: 'HUF 15,000',
+          description:
+            'Support for school challenges, anxiety, motivation, and peer relationships for grades 1–12.',
+          featured: true,
+          features: [
+            'Online session',
             'Personalized development plan',
             'Parent feedback on request',
           ],
         },
         {
-          id: 'sports',
-          title: 'Sport Psychology Consultation',
-          duration: '90 minutes',
-          price: 'HUF 20,000',
-          description:
-            'Competition pressure, performance anxiety, focus, and confidence for young and adult athletes.',
-          featured: true,
-          features: [
-            'Mental preparation for competitions',
-            'Practical techniques for training too',
-            'Available online or in person',
-          ],
-        },
-        {
           id: 'parenting',
           title: 'Parent Consultation & Guidance',
-          duration: '60 minutes',
-          price: 'HUF 10,000',
+          duration: '50 minutes',
+          price: 'HUF 13,000',
           description:
             'Parenting questions, family dynamics, and coordinating support for your child at school or in sport.',
           featured: false,
