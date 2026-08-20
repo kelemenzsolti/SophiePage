@@ -43,18 +43,18 @@ export const CONTACT = {
   phone: {
     /** Shown before the visitor asks to see the real value. */
     mask: '+36 30 ••• ••••',
-    payload: 'SElFDVBfTkVTUFQZQwdU',
+    payload: 'SElFDVRfTkZUUVQYRghR',
   },
   email: {
     mask: '•••••••••@gmail.com',
-    payload: 'GQkcQRcGQB8EDxFAE19SQ0oUIwgDFQgPWk4ZXA==',
+    payload: 'AAASXxcHQA4SDBJEFwFROhRAAgYCWgIMGQ==',
   },
 } as const satisfies {
   key: string;
 } & Record<ContactChannel, { mask: string; payload: string }>;
 
 export const SOCIAL_LINKS = [
-  { name: 'Instagram', href: 'https://www.instagram.com/czarth.zsofia/' },
+  { name: 'Instagram', href: 'https://www.instagram.com/psychologysophie/' },
   { name: 'Facebook', href: 'https://www.facebook.com/csengezsofia.czarth.3' },
   { name: 'LinkedIn', href: 'https://www.linkedin.com/in/czarthcsengezsofia/' },
 ] as const;
