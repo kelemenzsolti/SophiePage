@@ -51,9 +51,9 @@ export const CAL = {
   namespace: 'booking',
   brandColor: '#b85c3c',
   links: {
-    individual: 'zsofia-czarth-rohber/30min',
-    sports: 'zsofia-czarth-rohber/secret',
-    parenting: 'zsofia-czarth-rohber/15min',
+    individual: 'zsofia-czarth-rohber/parent',
+    sports: 'zsofia-czarth-rohber/normal',
+    parenting: 'zsofia-czarth-rohber/sport',
   } satisfies Record<ServiceCategory, string>,
 } as const;
 
