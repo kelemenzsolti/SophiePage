@@ -10,7 +10,7 @@ export function Services() {
   const { t } = useTranslation();
 
   return (
-    <Section id="services">
+    <Section id="services" tone="shell">
       <SectionHeading
         eyebrow={t.nav.services}
         title={t.services.title}

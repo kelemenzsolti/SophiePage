@@ -24,6 +24,16 @@ export const translations = {
       goToSlide: 'Ugrás a(z) {n}. véleményre',
       scrollCue: 'Görgess',
     },
+    contact: {
+      phoneLabel: 'Telefon',
+      emailLabel: 'E-mail',
+      revealPhone: 'Telefonszám megjelenítése',
+      revealEmail: 'E-mail cím megjelenítése',
+      copy: 'Másolás',
+      copied: 'Másolva',
+      copyFailed: 'A másolás nem sikerült',
+      hiddenNote: 'Levélszemét elleni védelemből rejtve.',
+    },
     nav: {
       logo: 'Czárth Zsófia',
       about: 'Rólam',
@@ -169,8 +179,6 @@ export const translations = {
         title: 'Foglalj első alkalmat',
         description:
           'Töltsd ki az alábbi űrlapot, és 24 órán belül felveszem veled a kapcsolatot.',
-        phoneLabel: 'Telefon',
-        phoneAction: 'Hívás indítása',
       },
       form: {
         subject: 'Időpontfoglalás',
@@ -179,7 +187,7 @@ export const translations = {
         emailLabel: 'E-mail',
         emailPlaceholder: 'pelda@email.hu',
         phoneLabel: 'Telefon',
-        phonePlaceholder: '+36 30 123 4567',
+        phonePlaceholder: '+36 30 000 0000',
         messageLabel: 'Üzenet',
         messagePlaceholder:
           'Röviden írd le, miben kértek támogatást (pl. tanulás, szorongás, sport)...',
@@ -234,11 +242,6 @@ export const translations = {
     footer: {
       tagline: 'Iskolapszichológus | Sportpszichológiai Tanácsadó',
       contactTitle: 'Kapcsolat',
-      email: 'hello@czarthzsofia.hu',
-      phone: '+36 30 123 4567',
-      formLink: 'Kapcsolatfelvételi űrlap',
-      phoneLabel: 'Telefon',
-      phoneAction: 'Hívás indítása',
       location: 'Budapest, Magyarország',
       socialTitle: 'Kövessen',
       legal: '© 2026 Czárth Zsófia. Minden jog fenntartva.',
@@ -271,6 +274,16 @@ export const translations = {
       carouselLabel: 'Testimonials',
       goToSlide: 'Go to testimonial {n}',
       scrollCue: 'Scroll',
+    },
+    contact: {
+      phoneLabel: 'Phone',
+      emailLabel: 'Email',
+      revealPhone: 'Show phone number',
+      revealEmail: 'Show email address',
+      copy: 'Copy',
+      copied: 'Copied',
+      copyFailed: 'Copy failed',
+      hiddenNote: 'Hidden as a precaution against spam.',
     },
     nav: {
       logo: 'Czárth Zsófia',
@@ -417,8 +430,6 @@ export const translations = {
         title: 'Book Your First Session',
         description:
           'Fill in the form below and I will get back to you within 24 hours.',
-        phoneLabel: 'Phone',
-        phoneAction: 'Start call',
       },
       form: {
         subject: 'Booking Request',
@@ -427,7 +438,7 @@ export const translations = {
         emailLabel: 'Email',
         emailPlaceholder: 'you@example.com',
         phoneLabel: 'Phone',
-        phonePlaceholder: '+36 30 123 4567',
+        phonePlaceholder: '+36 30 000 0000',
         messageLabel: 'Message',
         messagePlaceholder:
           'Briefly describe your goals (e.g. school anxiety, sports performance, parenting)...',
@@ -481,11 +492,6 @@ export const translations = {
     footer: {
       tagline: 'School Psychologist | Sport Psychology Consultant',
       contactTitle: 'Contact',
-      email: 'hello@czarthzsofia.hu',
-      phone: '+36 30 123 4567',
-      formLink: 'Contact form',
-      phoneLabel: 'Phone',
-      phoneAction: 'Start call',
       location: 'Budapest, Hungary',
       socialTitle: 'Follow',
       legal: '© 2026 Zsófia Czárth. All rights reserved.',
