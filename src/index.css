@@ -185,6 +185,11 @@
     @apply mb-1.5 block text-xs font-semibold uppercase tracking-[0.12em] text-ink/65;
   }
 
+  /* Native checkbox, tinted to the brand — no forms plugin in this project. */
+  .field-check {
+    @apply h-4 w-4 shrink-0 cursor-pointer accent-terracotta focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
   /* Native select arrows are inconsistent across platforms; draw our own. */
   .field-select {
     @apply field cursor-pointer appearance-none bg-no-repeat pr-11;

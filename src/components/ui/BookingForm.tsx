@@ -1,7 +1,7 @@
 import { useEffect, useId, useState, type FormEvent } from 'react';
 import { getCalApi } from '@calcom/embed-react';
 import { useBooking } from '../../context/BookingContext';
-import { CAL, SERVICE_CATEGORIES } from '../../content/site';
+import { asset, CAL, LEGAL_DOCS, SERVICE_CATEGORIES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { Icon } from './Icon';
 
@@ -16,6 +16,7 @@ export function BookingForm() {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>('idle');
 
   // Load the Cal.com embed once and theme it to match the page.
@@ -40,6 +41,10 @@ export function BookingForm() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // The submit button is disabled without consent, but a form can also be
+    // submitted by pressing Enter in a text field — so re-check it here.
+    if (!consent) return;
 
     // Simple honeypot: real visitors never fill a hidden field. Bots get the
     // success state so they have no signal to retry with.
@@ -84,6 +89,7 @@ export function BookingForm() {
       setEmail('');
       setPhone('');
       setMessage('');
+      setConsent(false);
       setStatus('success');
     } catch {
       setStatus('error');
@@ -91,6 +97,8 @@ export function BookingForm() {
   };
 
   const pending = status === 'submitting';
+  /** Neither the form nor the calendar may be used before consent is given. */
+  const blocked = !consent;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -197,6 +205,45 @@ export function BookingForm() {
         />
       </div>
 
+      {/* Consent gate — unlocks both the submit button and the calendar. */}
+      <div>
+        <div className="flex items-start gap-3">
+          <input
+            id={`${fieldId}-consent`}
+            type="checkbox"
+            checked={consent}
+            onChange={(event) => setConsent(event.target.checked)}
+            aria-describedby={`${fieldId}-consent-hint`}
+            className="field-check mt-0.5"
+            disabled={pending}
+          />
+          <label
+            htmlFor={`${fieldId}-consent`}
+            className="cursor-pointer text-sm leading-relaxed text-ink/75"
+          >
+            {t.booking.form.consentPrefix}
+            <a
+              href={asset(LEGAL_DOCS.privacy)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-terracotta-deep underline underline-offset-2 transition-colors hover:text-terracotta"
+            >
+              {t.booking.form.consentLink}
+            </a>
+            {t.booking.form.consentSuffix}
+          </label>
+        </div>
+
+        <p
+          id={`${fieldId}-consent-hint`}
+          className={`mt-2 pl-7 text-xs text-ink/55 transition-opacity duration-200 ${
+            blocked ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          {t.booking.form.consentHint}
+        </p>
+      </div>
+
       {/* Announced to screen readers as soon as the request resolves. */}
       <div aria-live="polite" role="status">
         {status === 'success' && (
@@ -214,7 +261,7 @@ export function BookingForm() {
 
       <button
         type="submit"
-        disabled={pending}
+        disabled={pending || blocked}
         className="btn-accent btn-lg w-full"
       >
         {pending ? t.booking.form.sending : t.booking.form.submit}
@@ -228,12 +275,20 @@ export function BookingForm() {
         <span className="h-px flex-1 bg-ink/10" />
       </div>
 
-      {/* Opens the Cal.com calendar for whichever service is selected above. */}
+      {/* Opens the Cal.com calendar for whichever service is selected above.
+          Cal listens through a delegated click handler and reads these
+          attributes at click time, so withholding them until consent is given
+          keeps the calendar shut even if the disabled state is bypassed. */}
       <button
         type="button"
-        data-cal-namespace={CAL.namespace}
-        data-cal-link={CAL.links[category]}
-        data-cal-config={`{"layout":"month_view"}`}
+        disabled={blocked}
+        {...(blocked
+          ? {}
+          : {
+              'data-cal-namespace': CAL.namespace,
+              'data-cal-link': CAL.links[category],
+              'data-cal-config': `{"layout":"month_view"}`,
+            })}
         className="btn-outline btn-lg w-full gap-2.5"
       >
         <Icon name="calendar" className="h-4 w-4" />

@@ -205,6 +205,11 @@ export const translations = {
           sports: 'Sportpszichológiai tanácsadás',
           parenting: 'Szülő konzultáció & tanácsadás',
         },
+        consentPrefix: 'Elolvastam és elfogadom az ',
+        consentLink: 'adatvédelmi tájékoztatót',
+        consentSuffix: '.',
+        consentHint:
+          'Az űrlap elküldéséhez és az időpontfoglaláshoz el kell fogadnod az adatvédelmi tájékoztatót.',
         or: 'Vagy',
         chooseDate: 'Foglalj időpontot a valós idejű naptárban',
       },
@@ -455,6 +460,11 @@ export const translations = {
           sports: 'Sport Psychology Consultation',
           parenting: 'Parent Consultation & Guidance',
         },
+        consentPrefix: 'I have read and accept the ',
+        consentLink: 'privacy policy',
+        consentSuffix: '.',
+        consentHint:
+          'You need to accept the privacy policy before sending a message or booking a date.',
         or: 'Or',
         chooseDate: 'Select a date and time in the real time calendar',
       },

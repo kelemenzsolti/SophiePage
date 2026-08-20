@@ -84,3 +84,13 @@ export const IMAGES = {
   portrait: 'assets/profile.jpg',
   forest: 'assets/herov2.jpg',
 } as const;
+
+/**
+ * Legal documents served straight from `public/`. Linked from the footer and
+ * from the booking form's consent checkbox; both open them in a new tab so a
+ * half-filled form is never lost.
+ */
+export const LEGAL_DOCS = {
+  privacy: 'assets/Adatvedelem_CzarthZsofia.pdf',
+  terms: 'assets/ASZF_CzarthZsofia.pdf',
+} as const;

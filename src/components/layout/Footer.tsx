@@ -1,4 +1,4 @@
-import { NAV_LINKS, SOCIAL_LINKS } from '../../content/site';
+import { asset, LEGAL_DOCS, NAV_LINKS, SOCIAL_LINKS } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { BrandIcon, Icon } from '../ui/Icon';
 import { ContactReveal, ContactRevealNote } from '../ui/ContactReveal';
@@ -86,10 +86,20 @@ export function Footer() {
           <p className="text-xs text-paper/55">{t.footer.legal}</p>
 
           <div className="flex flex-wrap items-center gap-x-7 gap-y-4 text-xs">
-            <a href="#" className="text-paper/55 transition-colors hover:text-paper">
+            <a
+              href={asset(LEGAL_DOCS.privacy)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-paper/55 transition-colors hover:text-paper"
+            >
               {t.footer.privacy}
             </a>
-            <a href="#" className="text-paper/55 transition-colors hover:text-paper">
+            <a
+              href={asset(LEGAL_DOCS.terms)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-paper/55 transition-colors hover:text-paper"
+            >
               {t.footer.terms}
             </a>
 
