@@ -13,9 +13,17 @@
     />
     <meta name="author" content="Czárth Zsófia" />
 
-    <!-- Social previews. Swap the og:url/og:image origin for the production
-         domain once it is registered — crawlers require absolute URLs. -->
-    <meta property="og:type" content="profile" />
+    <!-- Canonical origin. The site is reachable at both czarthzsofia.hu and
+         kelemenzsolti.github.io/SophiePage/; without this, Google treats them as
+         duplicates and splits ranking signals between them. Keep in step with
+         SITE_URL in src/content/site.ts. -->
+    <link rel="canonical" href="https://czarthzsofia.hu/" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+
+    <!-- Social previews. Crawlers require absolute URLs, so these cannot use the
+         relative paths the rest of the document does. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://czarthzsofia.hu/" />
     <meta property="og:site_name" content="Czárth Zsófia" />
     <meta property="og:locale" content="hu_HU" />
     <meta property="og:locale:alternate" content="en_US" />
@@ -27,8 +35,24 @@
       property="og:description"
       content="Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban."
     />
-    <meta property="og:image" content="assets/img/portrait.jpg" />
+    <meta property="og:image" content="https://czarthzsofia.hu/assets/img/portrait.jpg" />
+    <meta property="og:image:width" content="768" />
+    <meta property="og:image:height" content="1152" />
+    <meta
+      property="og:image:alt"
+      content="Czárth Zsófia iskolapszichológus és sportpszichológiai tanácsadó portréja"
+    />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Czárth Zsófia – Iskolapszichológus &amp; Sportpszichológiai Tanácsadó"
+    />
+    <meta
+      name="twitter:description"
+      content="Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban."
+    />
+    <meta name="twitter:image" content="https://czarthzsofia.hu/assets/img/portrait.jpg" />
 
     <!-- Fraunces and Inter are self-hosted (`npm run fonts`) and bundled through
          `src/fonts.css`. Linking fonts.googleapis.com here cost a render-blocking
@@ -55,43 +79,144 @@
       imagesizes="100vw"
     />
 
+    <!-- Structured data. One @graph of cross-referenced entities rather than a
+         single flat node, so Google can tell the practitioner (Person) apart
+         from the practice (Psychologist) and still know they are the same
+         operation. The @id values are the joins; they are URL fragments, not
+         pages, and never need to resolve.
+
+         Deliberately absent: telephone and email. Both are obfuscated in
+         src/content/site.ts to keep them away from scrapers, and both are still
+         development placeholders — publishing a wrong number in structured data
+         is worse than publishing none. Add them here once they are real. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Psychologist",
-        "name": "Czárth Zsófia",
-        "description": "Iskolapszichológus és sportpszichológiai tanácsadó. Gyermekek, fiatalok, szülők és sportolók mentális támogatása.",
-        "image": "assets/img/portrait.jpg",
-        "areaServed": "Budapest, Magyarország",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Budapest",
-          "addressCountry": "HU"
-        },
-        "knowsLanguage": ["hu", "en"],
-        "sameAs": [
-          "https://www.instagram.com/psychologysophie/",
-          "https://www.facebook.com/csengezsofia.czarth.3",
-          "https://www.linkedin.com/in/czarthcsengezsofia/"
-        ],
-        "makesOffer": [
+        "@graph": [
           {
-            "@type": "Offer",
-            "name": "Egyéni tanácsadás (diák / fiatal)",
-            "price": "15000",
-            "priceCurrency": "HUF"
+            "@type": "WebSite",
+            "@id": "https://czarthzsofia.hu/#website",
+            "url": "https://czarthzsofia.hu/",
+            "name": "Czárth Zsófia",
+            "inLanguage": "hu-HU",
+            "publisher": { "@id": "https://czarthzsofia.hu/#person" }
           },
           {
-            "@type": "Offer",
-            "name": "Sportpszichológiai tanácsadás",
-            "price": "15000",
-            "priceCurrency": "HUF"
+            "@type": "WebPage",
+            "@id": "https://czarthzsofia.hu/#webpage",
+            "url": "https://czarthzsofia.hu/",
+            "name": "Czárth Zsófia – Iskolapszichológus & Sportpszichológiai Tanácsadó",
+            "description": "Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban.",
+            "inLanguage": "hu-HU",
+            "isPartOf": { "@id": "https://czarthzsofia.hu/#website" },
+            "about": { "@id": "https://czarthzsofia.hu/#person" },
+            "primaryImageOfPage": { "@id": "https://czarthzsofia.hu/#portrait" }
           },
           {
-            "@type": "Offer",
-            "name": "Szülő konzultáció & tanácsadás",
-            "price": "13000",
-            "priceCurrency": "HUF"
+            "@type": "ImageObject",
+            "@id": "https://czarthzsofia.hu/#portrait",
+            "url": "https://czarthzsofia.hu/assets/img/portrait.jpg",
+            "contentUrl": "https://czarthzsofia.hu/assets/img/portrait.jpg",
+            "width": 768,
+            "height": 1152,
+            "caption": "Czárth Zsófia iskolapszichológus és sportpszichológiai tanácsadó"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://czarthzsofia.hu/#person",
+            "name": "Czárth Zsófia",
+            "givenName": "Zsófia",
+            "familyName": "Czárth",
+            "url": "https://czarthzsofia.hu/",
+            "image": { "@id": "https://czarthzsofia.hu/#portrait" },
+            "jobTitle": "Iskolapszichológus & Sportpszichológiai Tanácsadó",
+            "description": "Iskolapszichológus és sportpszichológiai tanácsadó. Gyermekek, fiatalok, szülők és sportolók mentális támogatása.",
+            "knowsLanguage": ["hu", "en"],
+            "knowsAbout": [
+              "Iskolapszichológia",
+              "Sportpszichológia",
+              "Teljesítményszorongás",
+              "Versenyszorongás",
+              "Tanulási nehézségek",
+              "Serdülőkori elakadások",
+              "Szülői konzultáció",
+              "Pályaválasztási tanácsadás"
+            ],
+            "sameAs": [
+              "https://www.instagram.com/psychologysophie/",
+              "https://www.facebook.com/csengezsofia.czarth.3",
+              "https://www.linkedin.com/in/czarthcsengezsofia/"
+            ],
+            "worksFor": { "@id": "https://czarthzsofia.hu/#practice" }
+          },
+          {
+            "@type": ["Psychologist", "ProfessionalService"],
+            "@id": "https://czarthzsofia.hu/#practice",
+            "name": "Czárth Zsófia – Iskolapszichológus & Sportpszichológiai Tanácsadó",
+            "url": "https://czarthzsofia.hu/",
+            "image": { "@id": "https://czarthzsofia.hu/#portrait" },
+            "description": "Online iskolapszichológiai és sportpszichológiai tanácsadás gyermekeknek, fiataloknak, szülőknek és sportolóknak.",
+            "founder": { "@id": "https://czarthzsofia.hu/#person" },
+            "priceRange": "13000–15000 HUF",
+            "currenciesAccepted": "HUF",
+            "availableLanguage": ["hu", "en"],
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Budapest",
+              "addressCountry": "HU"
+            },
+            "areaServed": [
+              { "@type": "City", "name": "Budapest" },
+              { "@type": "Country", "name": "Magyarország" }
+            ],
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Tanácsadási szolgáltatások",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "name": "Egyéni tanácsadás (diák / fiatal)",
+                  "description": "Iskolai elakadások, szorongás, motiváció és kortárs kapcsolatok támogatása 1–12. osztályos korosztálynak.",
+                  "price": "15000",
+                  "priceCurrency": "HUF",
+                  "availability": "https://schema.org/InStock",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Egyéni pszichológiai tanácsadás",
+                    "serviceType": "Iskolapszichológiai tanácsadás",
+                    "provider": { "@id": "https://czarthzsofia.hu/#practice" }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Sportpszichológiai tanácsadás",
+                  "description": "Versenynyomás, teljesítményszorongás, fókusz és önbizalom fejlesztése fiatal és felnőtt sportolóknak.",
+                  "price": "15000",
+                  "priceCurrency": "HUF",
+                  "availability": "https://schema.org/InStock",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Sportpszichológiai tanácsadás",
+                    "serviceType": "Sportpszichológia",
+                    "provider": { "@id": "https://czarthzsofia.hu/#practice" }
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "name": "Szülő konzultáció & tanácsadás",
+                  "description": "Nevelési kérdések, családi dinamikák és a gyermek iskolai/sportbeli támogatásának egyeztetése.",
+                  "price": "13000",
+                  "priceCurrency": "HUF",
+                  "availability": "https://schema.org/InStock",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Szülői konzultáció",
+                    "serviceType": "Szülői konzultáció",
+                    "provider": { "@id": "https://czarthzsofia.hu/#practice" }
+                  }
+                }
+              ]
+            }
           }
         ]
       }

@@ -1,0 +1,11 @@
+# https://czarthzsofia.hu/
+User-agent: *
+Allow: /
+
+# The legal PDFs are linked from the footer and the booking consent. They are
+# public documents, but they are not what anyone searches for — keeping them out
+# of the index stops them outranking the page itself for the practice's name.
+Disallow: /assets/Adatvedelem_CzarthZsofia.pdf
+Disallow: /assets/ASZF_CzarthZsofia.pdf
+
+Sitemap: https://czarthzsofia.hu/sitemap.xml

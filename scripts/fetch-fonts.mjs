@@ -11,9 +11,10 @@
  * Only `latin` and `latin-ext` are kept — `latin-ext` is what carries Hungarian
  * ő and ű. Re-run with `npm run fonts` to pick up upstream font revisions.
  */
-import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import subsetFont from 'subset-font';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT_FONTS = join(ROOT, 'src', 'assets', 'fonts');
@@ -27,6 +28,58 @@ const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
 
 const KEEP = new Set(['latin', 'latin-ext']);
+
+/**
+ * Every character the site can render, read straight out of the source.
+ *
+ * Google's `latin` + `latin-ext` subsets carry ~700 glyphs each and cost 334 KiB
+ * across the six files — on a throttled connection that is two thirds of the
+ * critical path, and it delays the hero image and the bundle behind it. The page
+ * only ever shows the strings in `translations.ts` and `site.ts`, so everything
+ * else is dead weight.
+ *
+ * Deriving the set from the source rather than hard-coding it means adding copy
+ * cannot silently outrun the fonts: re-run `npm run fonts` and the new glyphs are
+ * picked up. The ASCII + Hungarian floor below is a safety margin for strings
+ * that are built at runtime (dates, numbers, the decoded contact details).
+ */
+// Printable ASCII, built from its range so no quote character has to be escaped
+// into this literal.
+const ASCII = Array.from({ length: 0x7e - 0x20 + 1 }, (_, i) =>
+  String.fromCharCode(0x20 + i),
+).join('');
+
+/** Punctuation the copy uses that lives outside ASCII. */
+const TYPOGRAPHIC =
+  ' ' + // no-break space (used in "15 000 Ft")
+  '​' + // zero-width space
+  '–—' + // en dash, em dash
+  '‘’“”„' + // curly quotes
+  '…' + // ellipsis
+  '·•' + // middle dot, bullet
+  '€£' + // currency
+  '→↑'; // arrows
+
+/** Hungarian, then accents that turn up in loanwords and personal names. */
+const HUNGARIAN = 'áéíóöőúüűÁÉÍÓÖŐÚÜŰ';
+const EXTRA_LATIN = 'äßàâçèêëîïôùûñÄÀÂÇÈÊËÎÏÔÙÛÑ';
+
+const ALWAYS = ASCII + TYPOGRAPHIC + HUNGARIAN + EXTRA_LATIN;
+
+async function collectCharacters() {
+  const sources = ['src/i18n/translations.ts', 'src/content/site.ts'];
+  let chars = ALWAYS;
+  for (const file of sources) {
+    chars += await readFile(join(ROOT, file), 'utf8');
+  }
+  // Sort for a stable subset across runs, so identical content produces
+  // byte-identical fonts and the build stays reproducible.
+  return [...new Set(chars)].sort().join('');
+}
+
+const TEXT = await collectCharacters();
+console.log(`Subsetting to ${TEXT.length} distinct characters
+`);
 
 const css = await (await fetch(CSS_URL, { headers: { 'User-Agent': UA } })).text();
 
@@ -49,6 +102,7 @@ const out = [
   '',
 ];
 let total = 0;
+let before = 0;
 
 for (const { subset, rule } of blocks) {
   if (!KEEP.has(subset)) continue;
@@ -60,10 +114,20 @@ for (const { subset, rule } of blocks) {
   const style = rule.match(/font-style:\s*(\w+)/)?.[1] ?? 'normal';
   const file = `${family.toLowerCase()}-${subset}-${style}.woff2`;
 
-  const bytes = Buffer.from(await (await fetch(remote)).arrayBuffer());
+  const original = Buffer.from(await (await fetch(remote)).arrayBuffer());
+
+  // harfbuzz keeps the variable axes intact, so Fraunces still responds to
+  // optical sizing and weight after subsetting.
+  const bytes = await subsetFont(original, TEXT, { targetFormat: 'woff2' });
+
   await writeFile(join(OUT_FONTS, file), bytes);
   total += bytes.length;
-  console.log(`${file}  ${(bytes.length / 1024).toFixed(1)} KiB`);
+  before += original.length;
+  const saved = (1 - bytes.length / original.length) * 100;
+  console.log(
+    `${file.padEnd(36)} ${(original.length / 1024).toFixed(1).padStart(6)} KiB -> ` +
+      `${(bytes.length / 1024).toFixed(1).padStart(6)} KiB  (-${saved.toFixed(0)}%)`,
+  );
 
   // Relative URL so Vite fingerprints the file and rewrites it against `base`.
   out.push(rule.replace(remote, `./assets/fonts/${file}`).trim(), '');

@@ -6,6 +6,21 @@
  * holds the values that are identical in every language.
  */
 
+/**
+ * Canonical origin, without a trailing slash.
+ *
+ * Every absolute URL the site emits — canonical link, `og:url`, `sitemap.xml`,
+ * the JSON-LD `@id`s — is built from this. Search engines treat a page reachable
+ * at two origins as duplicate content, so this must name the one origin that is
+ * meant to rank. Change it here and nowhere else.
+ */
+export const SITE_URL = 'https://czarthzsofia.hu';
+
+/** Absolute URL for `path`, which is expected to be root-relative. */
+export function absoluteUrl(path = '/'): string {
+  return `${SITE_URL}${path.startsWith('/') ? path : `/${path}`}`;
+}
+
 /** Service categories. These ids key the booking form, the pricing cards and
  *  the Cal.com scheduling links, so they must stay in sync across all three. */
 export const SERVICE_CATEGORIES = ['individual', 'sports', 'parenting'] as const;

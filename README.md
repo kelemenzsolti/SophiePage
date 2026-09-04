@@ -92,6 +92,44 @@ what the booking form already does, by posting to Web3Forms rather than exposing
 an inbox. If spam ever becomes a real problem, remove `CONTACT` entirely and let
 the form be the only channel.
 
+## SEO
+
+The canonical origin is **https://czarthzsofia.hu**, declared once in `SITE_URL`
+(`src/content/site.ts`) and mirrored in `index.html`, `public/robots.txt`,
+`public/sitemap.xml` and `public/CNAME`. Change the domain and all five must move
+together — nothing derives the HTML tags from `SITE_URL` at build time.
+
+| Concern | Where |
+| --- | --- |
+| Canonical URL, robots directives | `<head>` of `index.html` |
+| Open Graph / Twitter cards | `<head>` — absolute URLs, crawlers reject relative ones |
+| Structured data | `<head>` JSON-LD `@graph`: WebSite, WebPage, ImageObject, Person, Psychologist |
+| Crawl rules + sitemap pointer | `public/robots.txt` |
+| URL inventory | `public/sitemap.xml` |
+| Custom domain | `public/CNAME` |
+
+### Prerendering
+
+`vite build` emits a document whose body is an empty `<div id="root">`, so a crawler
+has to execute 118 KiB of JavaScript before it sees a word of the copy.
+`scripts/prerender.mjs` renders the same tree with `react-dom/server` and bakes the
+markup into `dist/index.html`, putting every heading, paragraph and price in the served
+HTML. React still boots on top and replaces the tree — see the comment in `main.tsx`
+for why it renders rather than hydrates.
+
+Measured cost: **+300 ms FCP, −70 ms TBT, −1 Lighthouse point** (the extra ~8 KiB of
+gzipped HTML is on the critical path, and framer-motion renders the copy at `opacity: 0`
+so the extra markup buys no earlier *visible* paint). Kept because reliable indexing on
+a brand-new domain is worth more than one synthetic point, and non-Google crawlers are
+far weaker at JavaScript. To drop it, remove `&& node scripts/prerender.mjs` from the
+build script.
+
+### Deliberately not in the structured data
+
+`telephone` and `email`. Both are obfuscated in `site.ts` to keep them from scrapers,
+and both are still `TODO(launch)` placeholders. Add them to the `Psychologist` node in
+`index.html` once they are real — a wrong number in structured data is worse than none.
+
 ## Project structure
 
 ```
@@ -99,7 +137,8 @@ assets-src/              camera originals — never deployed, input to `npm run 
 
 scripts/
 ├── build-images.mjs     assets-src/ -> public/assets/img/ responsive derivatives
-├── fetch-fonts.mjs      vendors Fraunces + Inter into src/assets/fonts/
+├── fetch-fonts.mjs      vendors + subsets Fraunces and Inter into src/assets/fonts/
+├── prerender.mjs        bakes the rendered page into dist/index.html after build
 └── encode-contact.mjs   regenerates the obfuscated contact payloads
 
 src/
@@ -108,13 +147,14 @@ src/
 │   ├── layout/     Navbar, Footer, LanguageSwitcher
 │   ├── sections/   Hero, About, Services, Pricing, Booking, Testimonials
 │   └── ui/         Section, Reveal, Icon, Picture, BookingForm, ContactReveal
-├── content/        site.ts — nav, contact, social, Cal.com config, image manifest
+├── content/        site.ts — SITE_URL, nav, contact, social, Cal.com, image manifest
 ├── context/        BookingContext — shares the selected service across sections
 ├── hooks/          useScrolled, useActiveSection, useDismiss, useLockBodyScroll,
 │                   useNearViewport
 ├── i18n/           translations.ts, LanguageContext, useTranslation
 ├── lib/            cn (class join), motion (easing + reveal variants),
 │                   contact (obfuscation codec)
+├── entry-server.tsx  render entry used by the prerender step
 ├── fonts.css       generated @font-face rules
 └── index.css       design tokens + component layer
 ```
@@ -160,3 +200,12 @@ link version was a render-blocking stylesheet on a third origin; the vendored ve
 folded into the app's own CSS, so nothing extra blocks the first paint and no visitor IP
 reaches Google. Only the `latin` and `latin-ext` subsets are kept — `latin-ext` is what
 carries Hungarian ő and ű.
+
+`npm run fonts` also **subsets each file to the characters the site actually renders**,
+read out of `translations.ts` and `site.ts` at build time. Google's stock subsets carry
+~700 glyphs each and cost 403 KiB; the site uses 159 distinct characters and costs 154 KiB.
+That was worth 8 Lighthouse points on its own. Because the character set is derived from
+the source rather than hard-coded, adding copy cannot silently outrun the fonts — but the
+fonts do not regenerate on their own, so **re-run `npm run fonts` after adding a language
+or an unusual character**. `scripts/fetch-fonts.mjs` also carries a floor of ASCII plus
+Hungarian and common accents for strings built at runtime.
