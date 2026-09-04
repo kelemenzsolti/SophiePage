@@ -1,4 +1,4 @@
-import { IMAGES } from '../../content/site';
+import { IMAGES, PORTRAIT_SIZES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { Icon, type IconName } from '../ui/Icon';
 import { Picture } from '../ui/Picture';
@@ -98,7 +98,7 @@ export function About() {
               <Picture
                 image={IMAGES.portrait}
                 alt={t.profile.imageAlt}
-                sizes="(min-width: 1024px) 500px, 384px"
+                sizes={PORTRAIT_SIZES}
                 className="aspect-[3/4] w-full object-cover object-[center_22%]"
               />
               {/* Grounds the base of the portrait so it sits on the page. */}

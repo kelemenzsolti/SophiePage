@@ -22,8 +22,12 @@
     --c-forest-deep: 20 38 30; /* #14261e */
     --c-forest-soft: 90 122 105; /* #5a7a69 */
 
-    /* Terracotta — primary accent. `deep` is the AA-safe text tint on paper. */
-    --c-terracotta: 184 92 60; /* #b85c3c */
+    /* Terracotta — primary accent. `deep` is the AA-safe text tint on paper.
+       The base tint carries paper-coloured text on `.btn-accent` and on the
+       "most common" pricing badge, so it has to clear 4.5:1 against #fbf8f3
+       itself. The original #b85c3c measured 4.28:1; this is the same hue
+       darkened ~6% to 4.76:1. Anything lighter fails WCAG AA for both. */
+    --c-terracotta: 173 86 56; /* #ad5638 */
     --c-terracotta-deep: 158 71 43; /* #9e472b */
     --c-terracotta-soft: 224 175 152; /* #e0af98 */
 

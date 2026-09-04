@@ -1,6 +1,6 @@
 import { useCallback, useState, type KeyboardEvent } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { IMAGES } from '../../content/site';
+import { HERO_SIZES, IMAGES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { cn } from '../../lib/cn';
 import { EASE_EDITORIAL } from '../../lib/motion';
@@ -48,7 +48,7 @@ export function Testimonials() {
       <Picture
         image={IMAGES.forest}
         alt=""
-        sizes="100vw"
+        sizes={HERO_SIZES}
         className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
       />
       <div

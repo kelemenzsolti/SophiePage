@@ -13,17 +13,18 @@
     />
     <meta name="author" content="Czárth Zsófia" />
 
-    <!-- Canonical origin. The site is reachable at both czarthzsofia.hu and
+    <!-- Canonical origin. The site answers on both the custom domain and
          kelemenzsolti.github.io/SophiePage/; without this, Google treats them as
-         duplicates and splits ranking signals between them. Keep in step with
-         SITE_URL in src/content/site.ts. -->
-    <link rel="canonical" href="https://czarthzsofia.hu/" />
+         duplicates and splits ranking signals between them. %SITE_URL% is
+         substituted at build time from src/site.config.ts — the one place the
+         domain is written down. -->
+    <link rel="canonical" href="%SITE_URL%/" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <!-- Social previews. Crawlers require absolute URLs, so these cannot use the
          relative paths the rest of the document does. -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://czarthzsofia.hu/" />
+    <meta property="og:url" content="%SITE_URL%/" />
     <meta property="og:site_name" content="Czárth Zsófia" />
     <meta property="og:locale" content="hu_HU" />
     <meta property="og:locale:alternate" content="en_US" />
@@ -35,7 +36,7 @@
       property="og:description"
       content="Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban."
     />
-    <meta property="og:image" content="https://czarthzsofia.hu/assets/img/portrait.jpg" />
+    <meta property="og:image" content="%SITE_URL%/assets/img/portrait.jpg" />
     <meta property="og:image:width" content="768" />
     <meta property="og:image:height" content="1152" />
     <meta
@@ -52,32 +53,18 @@
       name="twitter:description"
       content="Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban."
     />
-    <meta name="twitter:image" content="https://czarthzsofia.hu/assets/img/portrait.jpg" />
+    <meta name="twitter:image" content="%SITE_URL%/assets/img/portrait.jpg" />
 
     <!-- Fraunces and Inter are self-hosted (`npm run fonts`) and bundled through
          `src/fonts.css`. Linking fonts.googleapis.com here cost a render-blocking
          stylesheet on a third origin before any glyph could paint. -->
 
     <!-- The hero photograph is the LCP element, but React renders it, so the
-         preload scanner cannot see it in this markup. This preload starts the
-         download during HTML parse instead of after the bundle executes. It
-         mirrors the AVIF <source> in <Picture> exactly — same srcset, same
-         sizes — so the two resolve to one request, not two. -->
-    <link
-      rel="preload"
-      as="image"
-      type="image/avif"
-      fetchpriority="high"
-      imagesrcset="
-        assets/img/hero-640.avif   640w,
-        assets/img/hero-960.avif   960w,
-        assets/img/hero-1280.avif 1280w,
-        assets/img/hero-1600.avif 1600w,
-        assets/img/hero-1920.avif 1920w,
-        assets/img/hero-2560.avif 2560w
-      "
-      imagesizes="100vw"
-    />
+         preload scanner cannot see it in this markup. The `site-metadata` plugin
+         in vite.config.ts expands this from the same image manifest <Picture>
+         uses, so the preload and the <picture> always resolve to one request
+         rather than downloading the hero twice. -->
+    <!--%LCP_PRELOAD%-->
 
     <!-- Structured data. One @graph of cross-referenced entities rather than a
          single flat node, so Google can tell the practitioner (Person) apart
@@ -95,40 +82,40 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://czarthzsofia.hu/#website",
-            "url": "https://czarthzsofia.hu/",
+            "@id": "%SITE_URL%/#website",
+            "url": "%SITE_URL%/",
             "name": "Czárth Zsófia",
             "inLanguage": "hu-HU",
-            "publisher": { "@id": "https://czarthzsofia.hu/#person" }
+            "publisher": { "@id": "%SITE_URL%/#person" }
           },
           {
             "@type": "WebPage",
-            "@id": "https://czarthzsofia.hu/#webpage",
-            "url": "https://czarthzsofia.hu/",
+            "@id": "%SITE_URL%/#webpage",
+            "url": "%SITE_URL%/",
             "name": "Czárth Zsófia – Iskolapszichológus & Sportpszichológiai Tanácsadó",
             "description": "Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban.",
             "inLanguage": "hu-HU",
-            "isPartOf": { "@id": "https://czarthzsofia.hu/#website" },
-            "about": { "@id": "https://czarthzsofia.hu/#person" },
-            "primaryImageOfPage": { "@id": "https://czarthzsofia.hu/#portrait" }
+            "isPartOf": { "@id": "%SITE_URL%/#website" },
+            "about": { "@id": "%SITE_URL%/#person" },
+            "primaryImageOfPage": { "@id": "%SITE_URL%/#portrait" }
           },
           {
             "@type": "ImageObject",
-            "@id": "https://czarthzsofia.hu/#portrait",
-            "url": "https://czarthzsofia.hu/assets/img/portrait.jpg",
-            "contentUrl": "https://czarthzsofia.hu/assets/img/portrait.jpg",
+            "@id": "%SITE_URL%/#portrait",
+            "url": "%SITE_URL%/assets/img/portrait.jpg",
+            "contentUrl": "%SITE_URL%/assets/img/portrait.jpg",
             "width": 768,
             "height": 1152,
             "caption": "Czárth Zsófia iskolapszichológus és sportpszichológiai tanácsadó"
           },
           {
             "@type": "Person",
-            "@id": "https://czarthzsofia.hu/#person",
+            "@id": "%SITE_URL%/#person",
             "name": "Czárth Zsófia",
             "givenName": "Zsófia",
             "familyName": "Czárth",
-            "url": "https://czarthzsofia.hu/",
-            "image": { "@id": "https://czarthzsofia.hu/#portrait" },
+            "url": "%SITE_URL%/",
+            "image": { "@id": "%SITE_URL%/#portrait" },
             "jobTitle": "Iskolapszichológus & Sportpszichológiai Tanácsadó",
             "description": "Iskolapszichológus és sportpszichológiai tanácsadó. Gyermekek, fiatalok, szülők és sportolók mentális támogatása.",
             "knowsLanguage": ["hu", "en"],
@@ -147,16 +134,16 @@
               "https://www.facebook.com/csengezsofia.czarth.3",
               "https://www.linkedin.com/in/czarthcsengezsofia/"
             ],
-            "worksFor": { "@id": "https://czarthzsofia.hu/#practice" }
+            "worksFor": { "@id": "%SITE_URL%/#practice" }
           },
           {
             "@type": ["Psychologist", "ProfessionalService"],
-            "@id": "https://czarthzsofia.hu/#practice",
+            "@id": "%SITE_URL%/#practice",
             "name": "Czárth Zsófia – Iskolapszichológus & Sportpszichológiai Tanácsadó",
-            "url": "https://czarthzsofia.hu/",
-            "image": { "@id": "https://czarthzsofia.hu/#portrait" },
+            "url": "%SITE_URL%/",
+            "image": { "@id": "%SITE_URL%/#portrait" },
             "description": "Online iskolapszichológiai és sportpszichológiai tanácsadás gyermekeknek, fiataloknak, szülőknek és sportolóknak.",
-            "founder": { "@id": "https://czarthzsofia.hu/#person" },
+            "founder": { "@id": "%SITE_URL%/#person" },
             "priceRange": "13000–15000 HUF",
             "currenciesAccepted": "HUF",
             "availableLanguage": ["hu", "en"],
@@ -184,7 +171,7 @@
                     "@type": "Service",
                     "name": "Egyéni pszichológiai tanácsadás",
                     "serviceType": "Iskolapszichológiai tanácsadás",
-                    "provider": { "@id": "https://czarthzsofia.hu/#practice" }
+                    "provider": { "@id": "%SITE_URL%/#practice" }
                   }
                 },
                 {
@@ -198,7 +185,7 @@
                     "@type": "Service",
                     "name": "Sportpszichológiai tanácsadás",
                     "serviceType": "Sportpszichológia",
-                    "provider": { "@id": "https://czarthzsofia.hu/#practice" }
+                    "provider": { "@id": "%SITE_URL%/#practice" }
                   }
                 },
                 {
@@ -212,7 +199,7 @@
                     "@type": "Service",
                     "name": "Szülői konzultáció",
                     "serviceType": "Szülői konzultáció",
-                    "provider": { "@id": "https://czarthzsofia.hu/#practice" }
+                    "provider": { "@id": "%SITE_URL%/#practice" }
                   }
                 }
               ]

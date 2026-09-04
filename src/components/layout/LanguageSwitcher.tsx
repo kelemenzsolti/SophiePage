@@ -39,7 +39,13 @@ export function LanguageSwitcher({ className, inverted = false }: LanguageSwitch
             type="button"
             onClick={() => setLanguage(lang)}
             aria-pressed={active}
-            aria-label={lang === 'hu' ? t.language.huFull : t.language.enFull}
+            /* The accessible name has to contain the visible text ("HU"/"EN"),
+               or speech-control users cannot activate what they can read —
+               WCAG 2.5.3. Naming it "Magyar" alone broke that, so the visible
+               code leads and the full name follows. */
+            aria-label={`${t.language[lang]} – ${
+              lang === 'hu' ? t.language.huFull : t.language.enFull
+            }`}
             className={cn(
               'relative rounded-full px-3 py-1.5 text-xs font-semibold tracking-[0.08em] transition-colors duration-300',
               active

@@ -1,4 +1,4 @@
-import { IMAGES } from '../../content/site';
+import { HERO_SIZES, IMAGES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { Icon } from '../ui/Icon';
 import { Picture } from '../ui/Picture';
@@ -14,7 +14,7 @@ export function Hero() {
       <Picture
         image={IMAGES.forest}
         alt=""
-        sizes="100vw"
+        sizes={HERO_SIZES}
         priority
         className="absolute inset-0 -z-20 h-full w-full object-cover object-[30%_center] md:object-[25%_center]"
       />
