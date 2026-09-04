@@ -32,7 +32,9 @@ export default {
 
       // Fluid editorial type scale. Sizes interpolate between 360px and ~1440px.
       fontSize: {
-        eyebrow: ['0.6875rem', { lineHeight: '1', letterSpacing: '0.2em' }],
+        // Leading has to clear the cap height: at 360-390px the hero eyebrow
+        // wraps to two lines, and `1` let them collide.
+        eyebrow: ['0.6875rem', { lineHeight: '1.5', letterSpacing: '0.2em' }],
         'display-xl': [
           'clamp(2.75rem, 1.45rem + 5.6vw, 5.75rem)',
           { lineHeight: '0.97', letterSpacing: '-0.032em' },

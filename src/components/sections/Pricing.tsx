@@ -61,14 +61,16 @@ export function Pricing() {
               {/* ---- Price block ---- */}
               <div
                 className={cn(
-                  'mt-8 flex items-end justify-between gap-4 border-t pt-7',
+                  // Wraps rather than breaking "15 000 Ft" across two lines
+                  // when the card narrows to a single mobile column.
+                  'mt-8 flex flex-wrap items-end justify-between gap-x-4 gap-y-4 border-t pt-7',
                   featured ? 'border-paper/15' : 'border-ink/10',
                 )}
               >
                 <div>
                   <p
                     className={cn(
-                      'font-display text-[2.5rem] font-medium leading-none tracking-tight',
+                      'whitespace-nowrap font-display text-[2.5rem] font-medium leading-none tracking-tight',
                       featured ? 'text-paper' : 'text-forest-deep',
                     )}
                   >
@@ -86,7 +88,7 @@ export function Pricing() {
 
                 <span
                   className={cn(
-                    'inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium',
+                    'inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium',
                     featured
                       ? 'bg-paper/10 text-paper/75'
                       : 'bg-shell text-ink/70',

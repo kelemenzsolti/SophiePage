@@ -7,9 +7,9 @@ export type TranslationKeys = (typeof translations)[Language];
 export const translations = {
   hu: {
     meta: {
-      title: 'Czárth Zsófia – Iskolapszichológus & Sportpszichológiai Tanácsadó',
+      title: 'Czárth Zsófia – Iskolapszichológus & képzésben lévő sportpszichológus',
       description:
-        'Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban.',
+        'Iskolapszichológus és képzésben lévő sportpszichológus. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban.',
       locale: 'hu_HU',
     },
     ui: {
@@ -44,7 +44,7 @@ export const translations = {
       bookSession: 'Időpontfoglalás',
     },
     hero: {
-      eyebrow: 'Iskolapszichológus | Sportpszichológiai Tanácsadó',
+      eyebrow: 'Iskolapszichológus | képzésben lévő sportpszichológus',
       headline: 'Támogatás a fejlődésben, fókusz a teljesítményben.',
       subheadline:
         'Segítek a gyermekeknek és fiataloknak leküzdeni az iskolai elakadásokat, a szülőknek megtalálni az egyensúlyt, a sportolóknak pedig kihozni magukból a maximális mentális teljesítményt.',
@@ -54,7 +54,7 @@ export const translations = {
     profile: {
       eyebrow: 'Rólam',
       name: 'Czárth Zsófia',
-      role: 'Iskolapszichológus & Sportpszichológiai Tanácsadó',
+      role: 'Iskolapszichológus & képzésben lévő sportpszichológus',
       imageAlt:
         'Czárth Zsófia portréja – mosolygó pszichológus modern, meleg hangulatú környezetben',
       paragraphs: [
@@ -263,9 +263,9 @@ export const translations = {
   },
   en: {
     meta: {
-      title: 'Zsófia Czárth – School Psychologist & Sport Psychology Consultant',
+      title: 'Zsófia Czárth – School Psychologist & in-training Sport Psychology Consultant',
       description:
-        'School Psychologist and Sport Psychology Consultant. Supporting children, adolescents, parents, and athletes in overcoming mental hurdles.',
+        'School Psychologist and in-training Sport Psychology Consultant. Supporting children, adolescents, parents, and athletes in overcoming mental hurdles.',
       locale: 'en_US',
     },
     ui: {
@@ -300,7 +300,7 @@ export const translations = {
       bookSession: 'Book a Session',
     },
     hero: {
-      eyebrow: 'School Psychologist | Sport Psychology Consultant',
+      eyebrow: 'School Psychologist | in-training Sport Psychology Consultant',
       headline: 'Support for growth, focus for peak performance.',
       subheadline:
         'Helping children and teens navigate school challenges, guiding parents toward balance, and empowering athletes to reach their mental potential.',
@@ -310,7 +310,7 @@ export const translations = {
     profile: {
       eyebrow: 'About Me',
       name: 'Zsófia Czárth',
-      role: 'School Psychologist & Sport Psychology Consultant',
+      role: 'School Psychologist & in-training Sport Psychology Consultant',
       imageAlt:
         'Portrait of Zsófia Czárth – smiling psychologist in a warm, modern office setting',
       paragraphs: [

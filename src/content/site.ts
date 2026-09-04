@@ -35,10 +35,16 @@ export const NAV_LINKS = [
   { key: 'services', href: '#services' },
   { key: 'pricing', href: '#pricing' },
   // { key: 'testimonials', href: '#testimonials' },
-  { key: 'contact', href: '#contact' },
+  { key: 'contact', href: '#booking' },
 ] as const;
 
-/** Section ids the navigation highlights while scrolling. Same rule as above. */
+/**
+ * Section ids the navigation highlights while scrolling. Same rule as above,
+ * plus one more: every id here must be reachable from `NAV_LINKS`, because
+ * `Navbar` matches them by comparing `active === href.slice(1)`. The contact
+ * link used to point at `#contact` — the footer — which meant the section it
+ * scrolled past ('booking') could never light up the link.
+ */
 export const SECTION_IDS = ['about', 'services', 'pricing', 'booking'];
 
 export type ContactChannel = 'phone' | 'email';

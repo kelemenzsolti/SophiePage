@@ -108,8 +108,14 @@ export function About() {
               />
             </div>
 
-            <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-ink/10 bg-paper px-5 py-2.5 shadow-card">
-              <span className="font-display text-sm text-forest-deep">
+            {/* The role is long enough to outgrow a phone viewport on one
+                line, so the pill only refuses to wrap once there is room for
+                it; below that it stays inside the portrait frame and breaks.
+                `w-max` is what makes the cap bite: with `left-1/2` alone the
+                box shrink-to-fits into the half-column to its right, which is
+                narrower than the cap and squeezes the label into a column. */}
+            <div className="absolute -bottom-5 left-1/2 w-max max-w-[calc(100%-2rem)] -translate-x-1/2 rounded-full border border-ink/10 bg-paper px-5 py-2.5 text-center shadow-card text-balance sm:max-w-none sm:whitespace-nowrap">
+              <span className="font-display text-xs text-forest-deep sm:text-sm">
                 {t.profile.role}
               </span>
             </div>
