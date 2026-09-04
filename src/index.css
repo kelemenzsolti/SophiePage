@@ -145,6 +145,17 @@
     @apply surface-raised transition-[transform,box-shadow,border-color] duration-500 ease-editorial hover:-translate-y-1 hover:border-terracotta/30 hover:shadow-lift;
   }
 
+  /* Inverted surfaces, for the one section that sits on the forest ground.
+     Shadows are invisible against a near-black field, so elevation here is
+     carried by the fill and the border rather than by `--shadow-*`. */
+  .surface-raised-dark {
+    @apply rounded-card border border-paper/10 bg-paper/[0.06];
+  }
+
+  .surface-interactive-dark {
+    @apply surface-raised-dark transition-[transform,background-color,border-color] duration-500 ease-editorial hover:-translate-y-1 hover:border-terracotta-soft/40 hover:bg-paper/[0.09];
+  }
+
   .hairline {
     @apply border-ink/[0.09];
   }
