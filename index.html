@@ -27,14 +27,32 @@
       property="og:description"
       content="Iskolapszichológus és sportpszichológiai tanácsadó. Segítek a gyermekek, fiatalok, szülők és sportolók mentális felkészülésében és elakadásaikban."
     />
-    <meta property="og:image" content="assets/profile.jpg" />
+    <meta property="og:image" content="assets/img/portrait.jpg" />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fraunces and Inter are self-hosted (`npm run fonts`) and bundled through
+         `src/fonts.css`. Linking fonts.googleapis.com here cost a render-blocking
+         stylesheet on a third origin before any glyph could paint. -->
+
+    <!-- The hero photograph is the LCP element, but React renders it, so the
+         preload scanner cannot see it in this markup. This preload starts the
+         download during HTML parse instead of after the bundle executes. It
+         mirrors the AVIF <source> in <Picture> exactly — same srcset, same
+         sizes — so the two resolve to one request, not two. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=Inter:wght@300..600&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="image"
+      type="image/avif"
+      fetchpriority="high"
+      imagesrcset="
+        assets/img/hero-640.avif   640w,
+        assets/img/hero-960.avif   960w,
+        assets/img/hero-1280.avif 1280w,
+        assets/img/hero-1600.avif 1600w,
+        assets/img/hero-1920.avif 1920w,
+        assets/img/hero-2560.avif 2560w
+      "
+      imagesizes="100vw"
     />
 
     <script type="application/ld+json">
@@ -43,7 +61,7 @@
         "@type": "Psychologist",
         "name": "Czárth Zsófia",
         "description": "Iskolapszichológus és sportpszichológiai tanácsadó. Gyermekek, fiatalok, szülők és sportolók mentális támogatása.",
-        "image": "assets/profile.jpg",
+        "image": "assets/img/portrait.jpg",
         "areaServed": "Budapest, Magyarország",
         "address": {
           "@type": "PostalAddress",

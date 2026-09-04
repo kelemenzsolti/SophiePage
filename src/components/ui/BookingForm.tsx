@@ -1,7 +1,7 @@
 import { useEffect, useId, useState, type FormEvent } from 'react';
-import { getCalApi } from '@calcom/embed-react';
 import { useBooking } from '../../context/BookingContext';
 import { asset, CAL, LEGAL_DOCS, SERVICE_CATEGORIES } from '../../content/site';
+import { useNearViewport } from '../../hooks/useNearViewport';
 import { useTranslation } from '../../i18n/useTranslation';
 import { Icon } from './Icon';
 
@@ -19,11 +19,17 @@ export function BookingForm() {
   const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<FormStatus>('idle');
 
-  // Load the Cal.com embed once and theme it to match the page.
+  // The Cal.com embed pulls a third-party script and its own bundle chunk. The
+  // form sits well below the fold, so neither is worth paying for during the
+  // initial load — both wait until the visitor is on their way down the page.
+  const [formRef, calNeeded, loadCal] = useNearViewport<HTMLFormElement>();
+
   useEffect(() => {
+    if (!calNeeded) return;
     let cancelled = false;
 
     (async () => {
+      const { getCalApi } = await import('@calcom/embed-react');
       const cal = await getCalApi({ namespace: CAL.namespace });
       if (cancelled) return;
 
@@ -37,7 +43,7 @@ export function BookingForm() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [calNeeded]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -101,7 +107,7 @@ export function BookingForm() {
   const blocked = !consent;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
       {/* Honeypot — hidden from people, tempting to bots. */}
       <input
         type="checkbox"
@@ -282,6 +288,8 @@ export function BookingForm() {
       <button
         type="button"
         disabled={blocked}
+        onPointerEnter={loadCal}
+        onFocus={loadCal}
         {...(blocked
           ? {}
           : {

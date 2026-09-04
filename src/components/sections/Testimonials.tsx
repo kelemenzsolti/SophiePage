@@ -1,10 +1,11 @@
 import { useCallback, useState, type KeyboardEvent } from 'react';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { asset, IMAGES } from '../../content/site';
+import { IMAGES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { cn } from '../../lib/cn';
 import { EASE_EDITORIAL } from '../../lib/motion';
 import { Icon } from '../ui/Icon';
+import { Picture } from '../ui/Picture';
 import { Reveal } from '../ui/Reveal';
 import { SectionHeading } from '../ui/Section';
 
@@ -44,13 +45,10 @@ export function Testimonials() {
     <section id="testimonials" className="relative isolate overflow-hidden py-24 md:py-32">
       {/* Forest ground. The photograph carries the section, so the scrim is
           tuned for text contrast rather than mood alone. */}
-          IDE ESETLEG SULIS VÉLEMÉNYEK ANONIM, VAGY IGAZGATÓ MEGJEGYZÉSEI
-      <img
-        src={asset(IMAGES.forest)}
+      <Picture
+        image={IMAGES.forest}
         alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
+        sizes="100vw"
         className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
       />
       <div

@@ -80,10 +80,53 @@ export function asset(path: string): string {
   return `${import.meta.env.BASE_URL}${path}`;
 }
 
+/**
+ * Responsive photography.
+ *
+ * The camera originals live in `assets-src/` and are never deployed. Every
+ * entry below points at the derivatives `npm run images` writes into
+ * `public/assets/img/` — one AVIF and one WebP per width in `widths`, plus a
+ * single `<name>.jpg` for browsers that support neither.
+ *
+ * `width`/`height` are the intrinsic size of that JPEG fallback. They only need
+ * to carry the right aspect ratio, which is what reserves the box before the
+ * bytes land.
+ */
+export interface ResponsiveImage {
+  /** Basename shared by every derivative, e.g. `hero` -> `hero-1280.avif`. */
+  name: string;
+  /** Intrinsic widths available in the `srcset`, ascending. */
+  widths: readonly number[];
+  width: number;
+  height: number;
+}
+
 export const IMAGES = {
-  portrait: 'assets/profile.jpg',
-  forest: 'assets/herov2.jpg',
-} as const;
+  portrait: {
+    name: 'portrait',
+    widths: [384, 512, 768, 1024, 1536],
+    width: 768,
+    height: 1152,
+  },
+  forest: {
+    name: 'hero',
+    widths: [640, 960, 1280, 1600, 1920, 2560],
+    width: 1600,
+    height: 1081,
+  },
+} as const satisfies Record<string, ResponsiveImage>;
+
+/** Builds the `srcset` for one format of a responsive image. */
+export function srcSet(image: ResponsiveImage, format: 'avif' | 'webp'): string {
+  return image.widths
+    .map((w) => `${asset(`assets/img/${image.name}-${w}.${format}`)} ${w}w`)
+    .join(', ');
+}
+
+/** The `<img src>` fallback every browser understands. */
+export function fallbackSrc(image: ResponsiveImage): string {
+  return asset(`assets/img/${image.name}.jpg`);
+}
 
 /**
  * Legal documents served straight from `public/`. Linked from the footer and

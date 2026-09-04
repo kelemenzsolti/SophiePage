@@ -95,20 +95,27 @@ the form be the only channel.
 ## Project structure
 
 ```
+assets-src/              camera originals — never deployed, input to `npm run images`
+
 scripts/
+├── build-images.mjs     assets-src/ -> public/assets/img/ responsive derivatives
+├── fetch-fonts.mjs      vendors Fraunces + Inter into src/assets/fonts/
 └── encode-contact.mjs   regenerates the obfuscated contact payloads
 
 src/
+├── assets/fonts/   self-hosted woff2 (generated — see `npm run fonts`)
 ├── components/
 │   ├── layout/     Navbar, Footer, LanguageSwitcher
 │   ├── sections/   Hero, About, Services, Pricing, Booking, Testimonials
-│   └── ui/         Section, Reveal, Icon, BookingForm, ContactReveal
-├── content/        site.ts — nav, contact, social, Cal.com config, asset paths
+│   └── ui/         Section, Reveal, Icon, Picture, BookingForm, ContactReveal
+├── content/        site.ts — nav, contact, social, Cal.com config, image manifest
 ├── context/        BookingContext — shares the selected service across sections
-├── hooks/          useScrolled, useActiveSection, useDismiss, useLockBodyScroll
+├── hooks/          useScrolled, useActiveSection, useDismiss, useLockBodyScroll,
+│                   useNearViewport
 ├── i18n/           translations.ts, LanguageContext, useTranslation
 ├── lib/            cn (class join), motion (easing + reveal variants),
 │                   contact (obfuscation codec)
+├── fonts.css       generated @font-face rules
 └── index.css       design tokens + component layer
 ```
 
@@ -117,10 +124,39 @@ holds only values that are identical in every language.
 
 ## Assets
 
+Full-resolution originals live in `assets-src/` and are **not** deployed. What ships
+is generated from them:
+
 ```
-public/assets/profile.jpg   portrait — hero
-public/assets/herov2.jpg    forest scene — testimonials backdrop
+assets-src/herov2.jpg    5399x3648 forest scene  ->  public/assets/img/hero-*
+assets-src/profile.jpg   3648x5472 portrait      ->  public/assets/img/portrait-*
+assets-src/hero.jpg      leftovers from an earlier design, unreferenced
+assets-src/hero.png
 ```
 
-`public/assets/hero.jpg` and `hero.png` are left over from an earlier design and are
-no longer referenced.
+```bash
+npm run images   # rebuild public/assets/img/ after changing anything in assets-src/
+npm run fonts    # re-vendor Fraunces + Inter from Google Fonts
+```
+
+Both commands write files that are **committed to the repo**, so the Pages build stays
+a plain `vite build` with no image or font toolchain in CI. `sharp` is only needed to
+run `npm run images` locally.
+
+`src/content/site.ts` declares which widths exist for each image; `scripts/build-images.mjs`
+declares which widths get generated. Keep the two lists in step.
+
+### Why the originals are not served
+
+Serving them cost 5.3 MB on first paint and a Lighthouse performance score of 48. Each
+image is now emitted as AVIF and WebP across six widths plus one JPEG fallback, picked
+per visitor through `<Picture>`'s `srcset`/`sizes`. A 1920px desktop downloads 148 KiB of
+hero instead of 2.8 MB.
+
+### Fonts
+
+Fraunces and Inter are self-hosted rather than linked from `fonts.googleapis.com`. The
+link version was a render-blocking stylesheet on a third origin; the vendored version is
+folded into the app's own CSS, so nothing extra blocks the first paint and no visitor IP
+reaches Google. Only the `latin` and `latin-ext` subsets are kept — `latin-ext` is what
+carries Hungarian ő and ű.

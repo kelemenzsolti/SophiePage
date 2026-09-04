@@ -1,6 +1,7 @@
-import { asset, IMAGES } from '../../content/site';
+import { IMAGES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { Icon } from '../ui/Icon';
+import { Picture } from '../ui/Picture';
 import { Reveal } from '../ui/Reveal';
 
 export function Hero() {
@@ -10,13 +11,11 @@ export function Hero() {
     <section className="relative isolate min-h-[92vh] overflow-hidden lg:min-h-screen">
       {/* Full-bleed forest ground. The composition sits left of centre, so the
           crop keeps it there and leaves the right side free for the type. */}
-      <img
-        src={asset(IMAGES.forest)}
+      <Picture
+        image={IMAGES.forest}
         alt=""
-        aria-hidden="true"
-        loading="eager"
-        fetchPriority="high"
-        decoding="async"
+        sizes="100vw"
+        priority
         className="absolute inset-0 -z-20 h-full w-full object-cover object-[30%_center] md:object-[25%_center]"
       />
 

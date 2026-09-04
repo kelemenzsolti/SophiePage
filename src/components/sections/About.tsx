@@ -1,6 +1,7 @@
-import { asset, IMAGES } from '../../content/site';
+import { IMAGES } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { Icon, type IconName } from '../ui/Icon';
+import { Picture } from '../ui/Picture';
 import { Reveal } from '../ui/Reveal';
 import { Section } from '../ui/Section';
 
@@ -94,13 +95,10 @@ export function About() {
             />
 
             <div className="relative overflow-hidden rounded-arch bg-sand shadow-lift">
-              <img
-                src={asset(IMAGES.portrait)}
+              <Picture
+                image={IMAGES.portrait}
                 alt={t.profile.imageAlt}
-                width={1216}
-                height={1621}
-                loading="lazy"
-                decoding="async"
+                sizes="(min-width: 1024px) 500px, 384px"
                 className="aspect-[3/4] w-full object-cover object-[center_22%]"
               />
               {/* Grounds the base of the portrait so it sits on the page. */}
