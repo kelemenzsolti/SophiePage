@@ -29,11 +29,16 @@ export type ServiceCategory = (typeof SERVICE_CATEGORIES)[number];
  * `testimonials` is commented out here for exactly that reason: `<Testimonials />`
  * is disabled in `App.tsx` until there is real content for it. Re-enable both
  * together.
+ *
+ * `pricing` is commented out on the same grounds — `<Pricing />` is currently
+ * disabled in `App.tsx`, so the link had nowhere to scroll to. `contact` still
+ * resolves because `<ExternalBooking />` took over the `#booking` id from the
+ * equally disabled `<Booking />`.
  */
 export const NAV_LINKS = [
   { key: 'about', href: '#about' },
   { key: 'services', href: '#services' },
-  { key: 'pricing', href: '#pricing' },
+  // { key: 'pricing', href: '#pricing' },
   // { key: 'testimonials', href: '#testimonials' },
   { key: 'contact', href: '#booking' },
 ] as const;
@@ -45,7 +50,7 @@ export const NAV_LINKS = [
  * link used to point at `#contact` — the footer — which meant the section it
  * scrolled past ('booking') could never light up the link.
  */
-export const SECTION_IDS = ['about', 'services', 'pricing', 'booking'];
+export const SECTION_IDS = ['about', 'services', 'booking'];
 
 export type ContactChannel = 'phone' | 'email';
 
@@ -84,7 +89,27 @@ export const SOCIAL_LINKS = [
 ] as const;
 
 /**
- * Cal.com embed configuration.
+ * Where appointments are taken while `<Booking />` is switched off in `App.tsx`.
+ *
+ * With that section commented out there is no calendar and no enquiry form on
+ * the page, so `<ExternalBooking />` stands in for it and sends visitors to the
+ * practice's listing on the Kertvárosi Pszichológiai és Fejlesztőpedagógiai
+ * Rendelő site instead.
+ *
+ * Only the URL lives here. The consulting window and the clinic's name are
+ * prose a visitor reads, so they sit with the rest of the copy in
+ * `translations.ts` under `externalBooking` — and have to be changed in both
+ * languages.
+ */
+export const EXTERNAL_BOOKING = {
+  href: 'https://gypszichologia.eu/services/czarth-zsofia/',
+  /** Bare host, shown in the "opens in a new tab" note. */
+  host: 'gypszichologia.eu',
+} as const;
+
+/**
+ * Cal.com embed configuration. Unused while `<Booking />` is commented out of
+ * `App.tsx`; `EXTERNAL_BOOKING` covers that period.
  *
  * TODO(launch): these event types belong to the developer's Cal.com account.
  * Point them at the practice's own account before going live.

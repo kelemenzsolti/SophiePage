@@ -96,6 +96,26 @@ export const translations = {
         },
       ],
     },
+    /**
+     * Stands in for the `booking` block while `<Booking />` is disabled.
+     * The consulting window and the clinic's name are prose, so they live
+     * here rather than in `site.ts` — change them in both languages.
+     */
+    externalBooking: {
+      eyebrow: 'Időpontfoglalás',
+      title: 'Időpontot jelenleg itt tudsz kérni',
+      subtitle:
+        'Az online naptáram átmenetileg nem elérhető. Amíg nem indul újra, a Kertvárosi Pszichológiai és Fejlesztőpedagógiai Rendelőn keresztül érsz el – a foglalás náluk néhány kattintás.',
+      whenLabel: 'Mikor',
+      whenValue: 'Minden szerda, 15:00–20:00',
+      whereLabel: 'Hol',
+      whereValue: 'Kertvárosi Pszichológiai és Fejlesztőpedagógiai Rendelő',
+      cta: 'Időpontfoglalás a rendelő oldalán',
+      ctaNote: 'Új lapon nyílik meg',
+      secondary: 'Inkább kérdeznék először',
+      secondaryNote:
+        'Ha előbb beszélnél róla, a lap alján található elérhetőségeken is kereshetsz.',
+    },
     pricing: {
       title: 'Árak',
       subtitle:
@@ -351,6 +371,22 @@ export const translations = {
             'Supportive guidance for parents on developmental milestones, setting boundaries, and family harmony.',
         },
       ],
+    },
+    /** See the note on the Hungarian `externalBooking` block. */
+    externalBooking: {
+      eyebrow: 'Booking',
+      title: 'Where to reach me right now',
+      subtitle:
+        'My online calendar is temporarily unavailable. Until it is back, you can reach me through the Kertvárosi Pszichológiai és Fejlesztőpedagógiai Rendelő — booking takes just a few clicks on their site.',
+      whenLabel: 'When',
+      whenValue: 'Every Wednesday, 3:00–8:00 pm',
+      whereLabel: 'Where',
+      whereValue: 'Kertvárosi Pszichológiai és Fejlesztőpedagógiai Rendelő',
+      cta: 'Book an appointment on their site',
+      ctaNote: 'Opens in a new tab',
+      secondary: 'I have a question first',
+      secondaryNote:
+        'If you would rather talk it through first, you can also use the contact details at the bottom of the page.',
     },
     pricing: {
       title: 'Pricing',

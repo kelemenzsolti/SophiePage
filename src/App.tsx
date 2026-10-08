@@ -3,10 +3,14 @@ import { useTranslation } from './i18n/useTranslation';
 import { Footer } from './components/layout/Footer';
 import { Navbar } from './components/layout/Navbar';
 import { About } from './components/sections/About';
-import { Booking } from './components/sections/Booking';
+import { ExternalBooking } from './components/sections/ExternalBooking';
 import { Hero } from './components/sections/Hero';
-import { Pricing } from './components/sections/Pricing';
 import { Services } from './components/sections/Services';
+// Disabled sections. The imports are commented out alongside the JSX below
+// because `noUnusedLocals` is on — leaving them in place fails `tsc -b`, and
+// with it `npm run build`.
+// import { Booking } from './components/sections/Booking';
+// import { Pricing } from './components/sections/Pricing';
 // import { Testimonials } from './components/sections/Testimonials';
 
 function App() {
@@ -27,9 +31,12 @@ function App() {
         <Hero />
         <About />
         <Services />
-        <Pricing />
-        <Booking />
-        {/* <Testimonials />*/ }
+        {/* Stands in for <Booking /> and owns the `#booking` id while that
+            section is disabled — see ExternalBooking.tsx. */}
+        <ExternalBooking />
+        {/* <Pricing /> */}
+        {/* <Booking /> */}
+        {/* <Testimonials /> */}
       </main>
 
       <Footer />
