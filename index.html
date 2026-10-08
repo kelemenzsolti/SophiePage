@@ -208,6 +208,34 @@
         ]
       }
     </script>
+
+    <!-- Cookieless visitor counting (Umami Cloud). Nothing is written to or read
+         from the visitor's device — no cookie, no localStorage — because the
+         session id is derived server-side from a salted hash that is never sent
+         back. That is what keeps the "no consent banner" position in section 9
+         of the privacy notice true: there is no terminal-equipment storage for
+         ePrivacy art. 5(3) to bite on, so there is nothing to consent to.
+
+         `data-domains` is the quota guard, not decoration. The free tier allows
+         100k events a month and the tracker stays silent unless the hostname
+         matches exactly, which keeps `npm run dev`, CI/Lighthouse runs and the
+         kelemenzsolti.github.io/SophiePage/ mirror — the same duplicate the
+         canonical tag above exists to disambiguate — out of the count.
+
+         `data-do-not-track` honours the browser's DNT signal; `data-exclude-search`
+         stops query strings being stored, so a referrer that carries personal
+         data in a parameter never reaches the analytics vendor.
+
+         Disclosed in section 4.11 of the privacy notice; the no-consent position
+         is argued in section 9. -->
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="54020e71-f22b-43c5-b9c8-4e89d6180102"
+      data-domains="czarthzsofia.hu"
+      data-do-not-track="true"
+      data-exclude-search="true"
+    ></script>
   </head>
   <body>
     <div id="root"></div>
