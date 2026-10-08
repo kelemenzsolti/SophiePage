@@ -1,9 +1,9 @@
-import { asset, LEGAL_DOCS, NAV_LINKS, SOCIAL_LINKS } from '../../content/site';
+import { /*asset, LEGAL_DOCS,*/ NAV_LINKS, SOCIAL_LINKS } from '../../content/site';
 import { useTranslation } from '../../i18n/useTranslation';
 import { BrandIcon, Icon } from '../ui/Icon';
 import { ContactReveal, ContactRevealNote } from '../ui/ContactReveal';
 import { Reveal } from '../ui/Reveal';
-import { LanguageSwitcher } from './LanguageSwitcher';
+// import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Footer() {
   const { t } = useTranslation();
