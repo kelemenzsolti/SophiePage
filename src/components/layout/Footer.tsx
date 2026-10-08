@@ -81,7 +81,7 @@ export function Footer() {
           </div>
         </Reveal>
 
-        {/* ---- Legal bar ---- */}
+        {/* ---- Legal bar ---- 
         <div className="mt-16 flex flex-col gap-6 border-t border-paper/10 pt-8 md:flex-row md:items-center md:justify-between">
           <p className="text-xs text-paper/55">{t.footer.legal}</p>
 
@@ -113,7 +113,7 @@ export function Footer() {
               <Icon name="arrowUp" className="h-3.5 w-3.5" />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
