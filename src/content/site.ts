@@ -130,8 +130,18 @@ export function fallbackSrc(image: ResponsiveImage): string {
  * Legal documents served straight from `public/`. Linked from the footer and
  * from the booking form's consent checkbox; both open them in a new tab so a
  * half-filled form is never lost.
+ *
+ * These are standalone HTML pages rather than the PDFs they replaced. A PDF
+ * cannot reflow on a phone, cannot be linked to by section — the consent
+ * checkbox wants `#kiskoru`, not "page 3" — and cannot be diffed in review,
+ * which for a document that has to track Hungarian law is the difference
+ * between maintaining it and rewriting it. The pages share `assets/legal.css`
+ * and print cleanly, so Ctrl+P still produces the PDF anyone wants on file.
+ *
+ * Both carry `<meta name="robots" content="noindex, follow">` instead of the
+ * robots.txt `Disallow` the PDFs used to need; see the note in vite.config.ts.
  */
 export const LEGAL_DOCS = {
-  privacy: 'assets/Adatvedelem_CzarthZsofia.pdf',
-  terms: 'assets/ASZF_CzarthZsofia.pdf',
+  privacy: 'assets/adatvedelmi-tajekoztato.html',
+  terms: 'assets/felhasznalasi-feltetelek.html',
 } as const;
